@@ -77,3 +77,11 @@ From 10.10.0.10: icmp_seq=1 Redirect Host(New nexthop: 10.10.0.1)
 2 packets transmitted, 2 received, 0% packet loss, time 1001ms
 rtt min/avg/max/mdev = 203.688/203.689/203.691/0.451 ms
 nrkk-osx:example nrkk$ 
+```
+
+### To destroy everything quickly
+
+
+```bash
+terraform destroy -var=cloud_id=$(yc config get cloud-id) -var=folder_id=$(yc config get folder-id) -var=token=$(yc config get token) 
+```
