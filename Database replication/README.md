@@ -55,7 +55,7 @@ CREATE TABLE phone(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHAR(32
 ```
 3. Create subscription to the changes on origin database using your user credentials:
 ```
-СREATE SUBSCRIPTION yandex_sub CONNECTION 'host=rc1b-ic8pnpo734nleelq.mdb.yandexcloud.net port=6432 dbname=db1 user={xxxx} password={xxxxxxx}' PUBLICATION yandex_pub;
+СREATE SUBSCRIPTION yandex_sub CONNECTION 'host={xxxxxxxxx.mdb.yandexcloud.net} port=6432 dbname=db1 user={xxxx} password={xxxxxxx}' PUBLICATION yandex_pub;
 ```
 
 ### Testing replication

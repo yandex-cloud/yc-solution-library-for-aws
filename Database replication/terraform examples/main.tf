@@ -73,7 +73,7 @@ module "db" {
   subnet_ids = data.aws_subnet_ids.all.ids
 
   # DB public access  
-  #publicly_accessible = true
+  publicly_accessible = true
 
   # DB parameter group
   family = "postgres12"
