@@ -5,7 +5,6 @@ We see more and more customers are looking for aproaches that could help build t
 
 ![Replication Diagram](managed_db_replication.png "Replication Diagram")
 
-%insert architecture diagram%
 
 You can find the detailed description how is similar proccess is working between PostgreSQL instances deployed on AWS, [here](https://aws.amazon.com/blogs/database/using-logical-replication-to-replicate-managed-amazon-rds-for-postgresql-and-amazon-aurora-to-self-managed-postgresql/). The proccess consits of two stages:
 1. Initial setup of logical replication slot and initial copy of data
@@ -14,22 +13,31 @@ You can find the detailed description how is similar proccess is working between
 ## Prerequisites
 
 1. Deploy new RDS database instance in your AWS account. You can find detailed insutruction [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.PostgreSQL.html) 
+
 `Note: You need to setup public access for the host.`
 2. Deploy new Yandex Managed Service for PostgreSQL also you can use your current deployment. You can find detailed insutrction how to deploy it [here](https://cloud.yandex.ru/docs/managed-postgresql/quickstart)  
+
 `Note: You need to setup public access for the host.`
-3. Configure security group for RDS instance to allow inbound and outbound traffic from IP yandex managed database host address. Ip address could be resolved using hostname from connection string provided in yandex web-console. For example: 
-`port:5432, ip:84.201.177.214/32, protocol:TCP`
+3. Configure security group for RDS instance to allow inbound and outbound traffic from IP yandex managed database host address. Ip address could be resolved using hostname from connection string provided in yandex web-console. 
+For example: `port:5432, ip:84.201.177.214/32, protocol:TCP`
 
 ## Configuring replication
 
 ### Yandex Database
 1. You need to grant permissions for the user that will be used for replication. To do that you need to execute that command using Yandex CLI:
+
 `yc managed-postgresql user update {user_name} --grants mdb_replication --cluster-id {cluster_id}`
+
 2. Create a test table:
+
 `CREATE TABLE phone(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHAR(32);`
+
 3. Insert test data:
+
 `INSERT INTO phone(phone, firstname, lastname) VALUES ('12313213', 'Jack', 'Jackinson')`
+
 4. Create publication:
+
 `CREATE PUBLICATION yandex_pub FOR TABLE phone;`
 
 
