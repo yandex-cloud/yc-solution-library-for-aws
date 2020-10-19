@@ -21,9 +21,9 @@ Lets follow the example to see how its works
 
 
 
-Initiate example playbook.  Please note that it uses "~/.ssh/id_rsa.pub" path for your public key
+### Initiate example playbook.  
 
-
+Please note that it uses "~/.ssh/id_rsa.pub" path for your public key
 
 ```
 cd example
@@ -31,12 +31,15 @@ terraform init
 terraform apply -var=cloud_id=$(yc config get cloud-id) -var=folder_id=$(yc config get folder-id) -var=token=$(yc config get token) 
 ```
 
-Wait for about 10 Minites...
+### Wait for about 10 Minites...
 
 Then you should be able to login to user vms with your ssh key  and ping private ip addresses of each other
 
 
-Ping from AWS to Yandex
+### Ping from AWS to Yandex
+
+Use following commands 
+
 ```bash
 YC_VM_ADDRESS=$(terraform output yandex_vm_internal_ip_address)
 ssh admin@$(terraform output aws_vm_external_ip_address) "ping $YC_VM_ADDRESS -c 2"
@@ -54,7 +57,9 @@ rtt min/avg/max/mdev = 203.462/208.306/213.150/4.844 ms
 nrkk-osx:example nrkk$ 
 ```
 
-Ping from Yandex to AWS
+### Ping from Yandex to AWS
+
+Use following commands 
 
 ```bash
 AWS_VM_ADDRESS=$(terraform output aws_vm_internal_ip_address)
