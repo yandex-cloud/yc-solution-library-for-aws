@@ -3,6 +3,8 @@
 ## Overview and target scenario 
 We see more and more customers are looking for aproaches that could help build their hybrid solutions. It could be local country regulations or latency requeremnts, the others using AWS as primary deployment and consolidating data there. To help our customers, we tested replication between AWS RDS PostgreSQL ver 12.3 and Managed Service for PostgreSQL ver. 12 and prepared detailed step-by-step instruction for that scenario. [Here](https://www.postgresql.org/docs/10/logical-replication.html) is the official documentation for logical replication in PostgreSQL wich is used to create that solution.  Below you can see deployment architecture. 
 
+![Replication Diagram](managed_db_replication.png "Replication Diagram")
+
 %insert architecture diagram%
 
 You can find the detailed description how is similar proccess is working between PostgreSQL instances deployed on AWS, [here](https://aws.amazon.com/blogs/database/using-logical-replication-to-replicate-managed-amazon-rds-for-postgresql-and-amazon-aurora-to-self-managed-postgresql/). The proccess consits of two stages:
