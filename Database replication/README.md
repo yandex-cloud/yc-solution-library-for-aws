@@ -13,10 +13,8 @@ You can find the detailed description how is similar proccess is working between
 ## Prerequisites
 
 1. Deploy new RDS database instance in your AWS account. You can find detailed insutruction [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.PostgreSQL.html) 
-
 `Note: You need to setup public access for the host.`
 2. Deploy new Yandex Managed Service for PostgreSQL also you can use your current deployment. You can find detailed insutrction how to deploy it [here](https://cloud.yandex.ru/docs/managed-postgresql/quickstart)  
-
 `Note: You need to setup public access for the host.`
 3. Configure security group for RDS instance to allow inbound and outbound traffic from IP yandex managed database host address. Ip address could be resolved using hostname from connection string provided in yandex web-console. 
 For example: `port:5432, ip:84.201.177.214/32, protocol:TCP`
@@ -42,7 +40,7 @@ For example: `port:5432, ip:84.201.177.214/32, protocol:TCP`
 
 
 ### AWS RDS for PostgreSQL
-1. You need create a new `Parameters group` and set value - "1" to parameter `rds.enable_logical_replication` and attach it to your database instance. You can find detailed instruction how to do that [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html).
+1. You need create a new `Parameters group` and set value - "1" to parameter `rds.enable_logical_replication` and attach it to your database instance. You can find detailed instruction how to create Parameters Group [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html).
 2. To establish replication you need to have same tables on read replica instance. For that you can use pgdump and restore or in our example just create the same empty table:
 `CREATE TABLE phone(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHAR(32);`
 3. Create subscription to the changes on origin database using your user credentials:
@@ -55,7 +53,10 @@ For example: `port:5432, ip:84.201.177.214/32, protocol:TCP`
 `INSERT INTO phone(phone, firstname, lastname) VALUES ('444444, 'Alex', 'Trump')` and check changes on read replica after that.
 
 Also, you can check the status of replication slots on origin database using that query: `select * from pg_replication_slots;` that should return something similar to that: 
-` yandex_sub     | pgoutput | logical   |  13934 | postgres | f         | t      |      31772 |      |          661 | 0/12016490  | 0/120164C8`
+
+```slot_name |  plugin  | slot_type | datoid | database | temporary | active | active_pid | xmin | catalog_xmin | restart_lsn | confirmed_flush_lsn 
+-----------|----------|-----------|--------|----------|-----------|--------|------------|------|--------------|-------------|---------------------
+ mysub     | pgoutput | logical   |  13934 | postgres | f         | t      |      31772 |      |          661 | 0/12016490  | 0/120164C8```
 
 Using that command in query can help you with current progress and get replication statistic: `select * from pg_stat_replication;`
 
