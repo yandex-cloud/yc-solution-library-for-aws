@@ -61,18 +61,17 @@ CREATE TABLE phone(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHAR(32
 ### Testing replication
 1. After succesfully finished above steps you should see the initial data on you AWS read replica instance. Try to execute that command on AWS read replica instance:
 `select * from phone` You should see the initial data from your origin Yandex database. Now all changes on the data from origin will be replicated to read replica in AWS. 
-2. Try to insert new row in origin database like that:
+2. Try to insert new row in origin database like that and check changes on read replica after that.:
 ```
 INSERT INTO phone(phone, firstname, lastname) VALUES ('444444, 'Alex', 'Trump')
-``` and check changes on read replica after that.
+```
 
 Also, you can check the status of replication slots on origin database using that query: `select * from pg_replication_slots;` that should return something similar to that: 
 
-```
 slot_name |  plugin  | slot_type | datoid | database | temporary | active | active_pid | xmin | catalog_xmin | restart_lsn | confirmed_flush_lsn 
 -----------|----------|-----------|--------|----------|-----------|--------|------------|------|--------------|-------------|---------------------
  mysub     | pgoutput | logical   |  13934 | postgres | f         | t      |      31772 |      |          661 | 0/12016490  | 0/120164C8
- ```
+
 
 Using that command in query can help you with current progress and get replication statistic: `select * from pg_stat_replication;`
 
@@ -89,3 +88,5 @@ You can find more details about replication restrictions and limitation [here](h
 * Large objects (see Chapter 34) are not replicated. There is no workaround for that, other than storing data in normal tables.
 * Replication is only possible from base tables to base tables. That is, the tables on the publication and on the subscription side must be normal tables, not views, materialized views, partition root tables, or foreign tables. In the case of partitions, you can therefore replicate a partition hierarchy one-to-one, but you cannot currently replicate to a differently partitioned setup. Attempts to replicate tables other than base tables will result in an error.
 
+### Using AWS Database Migration Service
+Current version of AWS Database Migration Service is using `pglogical` extension to sync the data between PostgreSQL databases. Unfortunatly, Yandex Managed Database for PostgreSQL does not have that extension. Therefore you can't establish on-going replication but still can use that service for one-time migration purposes. [Here](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_SettingUp.html), you can find detailed instruction how to use AWS Database Migration Service for establish replication between PostgreSQL database.   
