@@ -54,9 +54,11 @@ For example: `port:5432, ip:84.201.177.214/32, protocol:TCP`
 
 Also, you can check the status of replication slots on origin database using that query: `select * from pg_replication_slots;` that should return something similar to that: 
 
-```slot_name |  plugin  | slot_type | datoid | database | temporary | active | active_pid | xmin | catalog_xmin | restart_lsn | confirmed_flush_lsn 
+```
+slot_name |  plugin  | slot_type | datoid | database | temporary | active | active_pid | xmin | catalog_xmin | restart_lsn | confirmed_flush_lsn 
 -----------|----------|-----------|--------|----------|-----------|--------|------------|------|--------------|-------------|---------------------
- mysub     | pgoutput | logical   |  13934 | postgres | f         | t      |      31772 |      |          661 | 0/12016490  | 0/120164C8```
+ mysub     | pgoutput | logical   |  13934 | postgres | f         | t      |      31772 |      |          661 | 0/12016490  | 0/120164C8
+ ```
 
 Using that command in query can help you with current progress and get replication statistic: `select * from pg_stat_replication;`
 
