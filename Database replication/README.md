@@ -48,7 +48,7 @@ CREATE PUBLICATION yandex_pub FOR TABLE phone;
 
 
 ### AWS RDS for PostgreSQL
-1. You need create a new `Parameters group` and set value - "1" to parameter `rds.enable_logical_replication` and attach it to your database instance. You can find detailed instruction how to create Parameters Group [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html).
+1. You need create a new `Parameters group` and set value - "1" to parameter `rds.logical_replication` and attach it to your database instance. You can find detailed instruction how to create Parameters Group [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html).
 2. To establish replication you need to have same tables on read replica instance. For that you can use pgdump and restore or in our example just create the same empty table:
 ```
 CREATE TABLE phone(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHAR(32);
