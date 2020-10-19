@@ -24,33 +24,47 @@ For example: `port:5432, ip:84.201.177.214/32, protocol:TCP`
 ### Yandex Database
 1. You need to grant permissions for the user that will be used for replication. To do that you need to execute that command using Yandex CLI:
 
-`yc managed-postgresql user update {user_name} --grants mdb_replication --cluster-id {cluster_id}`
+```
+yc managed-postgresql user update {user_name} --grants mdb_replication --cluster-id {cluster_id}
+```
 
 2. Create a test table:
 
-`CREATE TABLE phone(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHAR(32);`
+```
+CREATE TABLE phone(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHAR(32);
+```
 
 3. Insert test data:
 
-`INSERT INTO phone(phone, firstname, lastname) VALUES ('12313213', 'Jack', 'Jackinson')`
+```
+INSERT INTO phone(phone, firstname, lastname) VALUES ('12313213', 'Jack', 'Jackinson')
+```
 
 4. Create publication:
 
-`CREATE PUBLICATION yandex_pub FOR TABLE phone;`
+```
+CREATE PUBLICATION yandex_pub FOR TABLE phone;
+```
 
 
 ### AWS RDS for PostgreSQL
 1. You need create a new `Parameters group` and set value - "1" to parameter `rds.enable_logical_replication` and attach it to your database instance. You can find detailed instruction how to create Parameters Group [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html).
 2. To establish replication you need to have same tables on read replica instance. For that you can use pgdump and restore or in our example just create the same empty table:
-`CREATE TABLE phone(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHAR(32);`
+```
+CREATE TABLE phone(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHAR(32);
+```
 3. Create subscription to the changes on origin database using your user credentials:
-`СREATE SUBSCRIPTION yandex_sub CONNECTION 'host=rc1b-ic8pnpo734nleelq.mdb.yandexcloud.net port=6432 dbname=db1 user={xxxx} password={xxxxxxx}' PUBLICATION yandex_pub;`
+```
+СREATE SUBSCRIPTION yandex_sub CONNECTION 'host=rc1b-ic8pnpo734nleelq.mdb.yandexcloud.net port=6432 dbname=db1 user={xxxx} password={xxxxxxx}' PUBLICATION yandex_pub;
+```
 
 ### Testing replication
 1. After succesfully finished above steps you should see the initial data on you AWS read replica instance. Try to execute that command on AWS read replica instance:
 `select * from phone` You should see the initial data from your origin Yandex database. Now all changes on the data from origin will be replicated to read replica in AWS. 
 2. Try to insert new row in origin database like that:
-`INSERT INTO phone(phone, firstname, lastname) VALUES ('444444, 'Alex', 'Trump')` and check changes on read replica after that.
+```
+INSERT INTO phone(phone, firstname, lastname) VALUES ('444444, 'Alex', 'Trump')
+``` and check changes on read replica after that.
 
 Also, you can check the status of replication slots on origin database using that query: `select * from pg_replication_slots;` that should return something similar to that: 
 
