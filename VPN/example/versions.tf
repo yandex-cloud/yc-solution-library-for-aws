@@ -1,7 +1,5 @@
 provider "yandex" {
-  token     = var.token
-  cloud_id  = var.cloud_id
-  folder_id = var.folder_id
+
   version = "~> 0.45"
 }
 

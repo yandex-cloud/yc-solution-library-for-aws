@@ -12,10 +12,15 @@ Lets follow the example to see how its works
 ## Prerequisites
 
 - Terraform 
-- Configured AWS CLI and [YC CLI](https://cloud.yandex.com/docs/cli/quickstart)  ( will be used for terraform credentials)
+- Configured AWS CLI and [YC CLI](https://cloud.yandex.com/docs/cli/quickstart) 
+- Export Yandex Cloud Credentials for Provider
 
+```
+export YC_TOKEN=$(yc config get token)
+export YC_CLOUD_ID=$(yc config get cloud-id)
+export YC_FOLDER_ID=$(yc config get folder-id)
 
-
+```
 ## Quick start
 
 
@@ -23,12 +28,13 @@ Lets follow the example to see how its works
 
 ### Initiate example playbook.  
 
+
 Please note that it uses "~/.ssh/id_rsa.pub" path for your public key
 
 ```
 cd example
 terraform init
-terraform apply -var=cloud_id=$(yc config get cloud-id) -var=folder_id=$(yc config get folder-id) -var=token=$(yc config get token) 
+terraform apply # use -var=public_key_path='another_path_to_ssh_public_key' if you your ssh key is located somewhere else
 ```
 
 ### Wait for about 10 Minites...
@@ -83,5 +89,5 @@ nrkk-osx:example nrkk$
 
 
 ```bash
-terraform destroy -var=cloud_id=$(yc config get cloud-id) -var=folder_id=$(yc config get folder-id) -var=token=$(yc config get token) 
+terraform destroy
 ```
