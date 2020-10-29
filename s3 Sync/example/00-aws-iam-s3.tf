@@ -2,7 +2,6 @@ resource "aws_iam_user" "yandex_sync" {
     name = "yandex_sync"
 }
 
-
 resource "aws_iam_access_key" "yandex_sync" {
   user = aws_iam_user.yandex_sync.name
 }
@@ -61,6 +60,4 @@ resource "aws_iam_role_policy_attachment" "yandex_sync" {
 resource "aws_s3_bucket" "aws_yc_sync" {
   bucket = "yc-s3-sync-${random_string.project_suffix.result}"
   acl    = "private"
-
 }
-

@@ -1,3 +1,3 @@
 variable "folder_id" {
-  description = "Path to public key file"
+  description = "Yandex.Cloud Folder ID"
 }

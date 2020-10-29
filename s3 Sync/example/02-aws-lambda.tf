@@ -1,13 +1,10 @@
 resource "aws_lambda_function" "yandex_sync" {
-  filename      = "${path.module}/sync.zip"
-  function_name = "yandex_sync"
-  role          = aws_iam_role.yandex_sync.arn
-  handler       = "main.handler"
+  function_name    = "yandex_sync"
+  role             = aws_iam_role.yandex_sync.arn
+  handler          = "main.handler"
 
-  # The filebase64sha256() function is available in Terraform 0.11.12 and later
-  # For Terraform 0.11.11 and earlier, use the base64sha256() function and the file() function:
-  # source_code_hash = "${base64sha256(file("lambda_function_payload.zip"))}"
-  source_code_hash = filebase64sha256("${path.module}/function/main.py")
+  source_code_hash = data.archive_file.function.output_path
+  filename         = data.archive_file.function.output_path
 
   runtime = "python3.7"
 
