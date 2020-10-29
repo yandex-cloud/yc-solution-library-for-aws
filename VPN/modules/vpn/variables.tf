@@ -23,8 +23,6 @@ variable "aws_route_table_id" {
 }
 
 
-
-
 variable "yandex_subnet_range" {
   description = "family"
   default     = "10.10.0.0/24"
