@@ -6,6 +6,9 @@
 # logs
 *.log
 
+# zip files
+*.zip
+
 # Directories
 .terraform/
 .vagrant/

@@ -64,8 +64,3 @@ resource "aws_s3_bucket" "aws_yc_sync" {
 
 }
 
-resource "aws_s3_bucket" "aws_lambda" {
-  bucket = "yc-s3-lambda-${random_string.project_suffix.result}"
-  acl    = "private"
-
-}
