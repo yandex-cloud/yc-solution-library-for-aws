@@ -56,4 +56,4 @@ To check the status of machines and manage them:
 1. Go to [SSM console](https://eu-central-1.console.aws.amazon.com/systems-manager/)
 2. Go to [Managed Instances](https://eu-central-1.console.aws.amazon.com/systems-manager/managed-instances?region=eu-central-1)
 3. You should see something like that 
-![Managed Instances](managed_ui.png"Managed Instances")
+![Managed Instances](managed_ui.png "Managed Instances")
