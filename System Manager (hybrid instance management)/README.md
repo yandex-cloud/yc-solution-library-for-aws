@@ -15,7 +15,9 @@ Configuring your hybrid environment for Systems Manager enables you to do the fo
 To start managing your instances that deployed on Yandex.Cloud you will need first provision roles and make Activation session with keys to help with that you can find a script: `initial_setup.sh` that will provision a IaM role for SSM and attach requered permissions. Also it will generate Activation Key and ID that should be used on managed instances during configuration.
 
 ## Initial setup
-Run that script from terminal where you have install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) with configured credentials. 
+Clone that solution to your workstation that have [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) installed with configured credentials for your AWS account.
+
+Run that script from terminal where you have install . 
 
 ```
 ./initial_setup.sh
