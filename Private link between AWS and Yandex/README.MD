@@ -20,7 +20,7 @@ To establish connectivity you will need active AWS account and Yandex.Cloud acco
 2. Create connection. [Here](https://docs.aws.amazon.com/directconnect/latest/UserGuide/create-connection.html) you can find detailed instruction  
 3. Download the LOA-CFA document. [detailed steps](https://docs.aws.amazon.com/directconnect/latest/UserGuide/create-connection.html#create-connection-loa-cfa)
 4. Provide that document to the partner that will create physical connection. The list of partner you can find below
-5. Go to [Yandex.Cloud console](https://console.cloud.yandex.ru/) and create support request ticket to request InterConnect. The request must indicate the point of presence where the connection is set up and the connection bandwidth. If you set up a connection via a partner, enter the name of the partner company. [Here](https://cloud.yandex.com/docs/vpc/interconnect/) you can find more deatils.
+5. Go to [Yandex.Cloud console](https://console.cloud.yandex.ru/) and create support request ticket to request InterConnect. The request must indicate the point of presence where the connection is set up and the connection bandwidth. If you set up a connection via a partner, enter the name of the partner company. [Here](https://cloud.yandex.com/docs/vpc/interconnect/) you can find more details. Also you can ask your account manager or solution architect in Yandex.Cloud to help you with this service.
 6. After that support will comeback to you and help establish configuration.
 7. You can monitor status of you connection in AWS console in "connection" section.
 8. When the connection would be established you will need create Virtual Interfaces in AWS console. [Here](https://docs.aws.amazon.com/directconnect/latest/UserGuide/WorkingWithVirtualInterfaces.html) you can find more detaild of how to do that.
@@ -28,9 +28,9 @@ To establish connectivity you will need active AWS account and Yandex.Cloud acco
 
 ## Partners 
 We found that these partners could help and previosly have experience to establish such connectivity:
-1. Retn
-2. LinxDataCenter
-3. xxx
+1. [Retn](https://retn.net)
+2. [Rascom](https://rascom.ru/en/)
+3. [Telia Carrier](https://www.teliacarrier.com)
 
 Also you can speak with APN Direct Connect partners from that list: https://aws.amazon.com/directconnect/partners/ 
 
