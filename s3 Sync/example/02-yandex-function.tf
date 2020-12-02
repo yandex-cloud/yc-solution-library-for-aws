@@ -3,12 +3,12 @@ resource "yandex_function" "s3_sync" {
   runtime            = "python38"
   entrypoint         = "main.handler"
   memory             = "256"
-  execution_timeout  = "10"
+  execution_timeout  = "30"
 
   environment = {
-      AWS_BUCKET = aws_s3_bucket.aws_yc_sync.id 
-      AWS_ACCESS_KEY_ID = aws_iam_access_key.yandex_sync.id
-      AWS_SECRET_ACCESS_KEY = aws_iam_access_key.yandex_sync.secret
+      AMAZON_BUCKET = aws_s3_bucket.aws_yc_sync.id
+      AMAZON_ACCESS_KEY_ID = aws_iam_access_key.yandex_sync.id
+      AMAZON_SECRET_ACCESS_KEY = aws_iam_access_key.yandex_sync.secret
       YANDEX_BUCKET = yandex_storage_bucket.aws_yc_sync.id
       YANDEX_ACCESS_KEY_ID = yandex_iam_service_account_static_access_key.sa_static_key.access_key
       YANDEX_SECRET_ACCESS_KEY = yandex_iam_service_account_static_access_key.sa_static_key.secret_key
@@ -22,7 +22,6 @@ resource "yandex_function" "s3_sync" {
 
 resource "yandex_function_trigger" "s3_sync" {
   name        = "s3-sync"
-  description = "any description"
   
   function {
     id = yandex_function.s3_sync.id 
@@ -32,7 +31,7 @@ resource "yandex_function_trigger" "s3_sync" {
   object_storage {
       bucket_id = yandex_storage_bucket.aws_yc_sync.id
       create = true
-      update = true
-      delete = true
+      update = false
+      delete = false
   }
 }

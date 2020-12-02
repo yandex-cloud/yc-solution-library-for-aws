@@ -1,6 +1,6 @@
 provider "yandex" {
-
   version = "~> 0.45"
+  folder_id = var.folder_id
 }
 
 

@@ -95,7 +95,11 @@ def parse_event(event: typing.Dict) -> ObjectReference:
         message = event['messages'][0]
         return ObjectReference(CloudPlatform.YANDEX, message['details']['object_id'])
 
-    # TODO parse aws
+    if 'Records' in event and \
+            len(event['Records']) > 0 and \
+            's3' in event['Records'][0]:
+        message = event['Records'][0]
+        return ObjectReference(CloudPlatform.AWS, message['s3']['object']['key'])
 
     raise Exception('unknown payload: {}'.format(json.dumps(event)))
 
