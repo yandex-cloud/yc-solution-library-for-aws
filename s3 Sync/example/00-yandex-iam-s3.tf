@@ -28,4 +28,24 @@ resource "yandex_storage_bucket" "aws_yc_sync" {
   access_key = yandex_iam_service_account_static_access_key.sa_static_key.access_key
   secret_key = yandex_iam_service_account_static_access_key.sa_static_key.secret_key
   acl    = "private"
+  depends_on = [yandex_resourcemanager_folder_iam_member.sa_admin]
+}
+
+
+
+output "bucket_name" {
+  value = yandex_storage_bucket.aws_yc_sync.id
+}
+
+locals {
+  s3cmd_template = templatefile("${path.module}/templates/s3cmd.tpl", {
+    access_key = yandex_iam_service_account_static_access_key.sa_static_key.access_key
+    secret_key = yandex_iam_service_account_static_access_key.sa_static_key.secret_key
+  })
+}
+
+
+resource "local_file" "s3cfg" {
+  content = local.s3cmd_template
+  filename = "s3cfg"
 }

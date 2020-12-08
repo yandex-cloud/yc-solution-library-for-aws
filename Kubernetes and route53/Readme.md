@@ -10,15 +10,17 @@ For example in this solution you can have a Main application installed in AWS an
 
 
 You can add other solutions from this library - for example 
-- vpn solution could help you to create secure channels between sites
+- VPN solution could help you to create secure channels between sites
 - RDS or AWS replication scenarios to help you sync your data
-- Kubefed to federate Kubernetes control plane
+- [Kubefed](https://github.com/kubernetes-sigs/kubefed) to federate Kubernetes control plane. Please note that Kubefed is in alpha state and not recomended for production use.
 
 
 ## Prerequisites
 
 - Accounts in AWS and Yandex.Cloud
+- Bash
 - Terraform 
+- curl
 - jq
 
 To configre AWS Site
@@ -40,20 +42,25 @@ This example uses folder 'default' for Yandex.Cloud , if you want to use another
 ## Quick start
 
 
-Apply terraform playbook
+### Initiate example playbook.  
 
-```sh
+
+Please note that it uses "~/.ssh/id_rsa.pub" path for your public key. 
+
+```
+cd example
 terraform init
-terraform apply
+terraform apply # use -var=public_key_path='another_path_to_ssh_public_key' if you your ssh key is located somewhere else
 ```
 
-Wait for about 20 minutes 
 
-if you have problems with EKS site please 
+### Wait for about 10 Minites...
+
+Note.  you have problems with provisioning pods on EKS cluster please use commands bellow
 
 
 1) get aws cluster name
-2)configure  cluster credentials and reapply terraform
+2) configure  cluster credentials and reapply terraform
 
 eg
 ```
@@ -62,7 +69,7 @@ aws eks --region us-west-2 update-kubeconfig --name $CLUSTER_NAME
 terraform apply
 ```
 
-## Check the result
+### Check the result
 
 
 You can curl both pods deployed in multiple clusters
@@ -81,5 +88,5 @@ to check whether route 53 global dns works please
 
 test www record with from different resolver addresses
 
-1) You can Google  address as US resolver 8.8.8.8 
-2) You can use Yandex  ip address as RU resolver 87.250.250.1
+1) You can Google address as US resolver 8.8.8.8 
+2) You can use Yandex ip address as RU resolver 87.250.250.1

@@ -1,4 +1,0 @@
-aws cloudformation package \
-    --template-file aws-yc-sync.template \
-    --s3-bucket aws-yc-sync-code \
-    --output-template-file out.template

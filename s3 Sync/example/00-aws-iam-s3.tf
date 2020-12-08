@@ -61,3 +61,4 @@ resource "aws_s3_bucket" "aws_yc_sync" {
   bucket = "yc-s3-sync-${random_string.project_suffix.result}"
   acl    = "private"
 }
+

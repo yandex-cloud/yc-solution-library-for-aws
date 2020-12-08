@@ -5,7 +5,7 @@
 *.tfvars
 # logs
 *.log
-
+*s3cfg
 # zip files
 *.zip
 
