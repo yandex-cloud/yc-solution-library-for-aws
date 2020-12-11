@@ -4,22 +4,29 @@
 Sometimes you need to deploy VPN Site-To-Site connection between Yandex and VPN.You can use this example and module to set  it up.
 
 
-![Replication Diagram](Diagram.png "Replication Diagram")
+![VPN Diagram](Diagram.png "VPN Diagram")
 
 
 Lets follow the example to see how its works
 
 ## Prerequisites
 
+- Accounts in AWS and Yandex.Cloud
+- Bash
 - Terraform 
-- Configured AWS CLI and [YC CLI](https://cloud.yandex.com/docs/cli/quickstart) 
-- Export Yandex Cloud Credentials for Provider
+- jq
 
+To configre AWS Site
+- Configure [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) 
+To configure Yandex.Cloud part
+- Configure  [YC CLI](https://cloud.yandex.com/docs/cli/quickstart) 
+- Export Yandex Cloud Credentials for Provider
 ```
 export YC_TOKEN=$(yc config get token)
 export YC_CLOUD_ID=$(yc config get cloud-id)
 export YC_FOLDER_ID=$(yc config get folder-id)
 ```
+
 ## Quick start
 
 
@@ -28,7 +35,7 @@ export YC_FOLDER_ID=$(yc config get folder-id)
 ### Initiate example playbook.  
 
 
-Please note that it uses "~/.ssh/id_rsa.pub" path for your public key
+Please note that it uses "~/.ssh/id_rsa.pub" path for your public key. 
 
 ```
 cd example

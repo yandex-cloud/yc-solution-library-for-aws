@@ -1,9 +1,18 @@
 # Description
-TDB
+
+This scenario shows how to leverage AWS Lambda functions and Yandex Cloud Functions to sync newly created objects in AWS S3 and Yandex Object Storage.
+
+Example uses the same function code for both sides as Yandex Cloud Functions and AWS Lambda Runtimes are compatible.
+
+If you look inside the code you will notice that it uses the same S3 API both sides as AWS S3 and Yandex Storage API's are compatible.
+
+
+![Replication Diagram](Diagram.png "Replication Diagram")
 
 # Limitations
 
-TBD
+Please note that this example syncs only newly created objects.
+
 
 # Syncyng two s3 buckets
 
@@ -90,10 +99,14 @@ $ aws s3 ls $BUCKET_NAME
 
 ### End the lab
 
+Delete created objects
 
 ```
 $ aws s3 rm s3://$BUCKET_NAME/sync.zip
 $ s3cmd rm s3://$BUCKET_NAME/sync.zip
+```
+Destroy the example
+```
 $ terraform destroy -var=folder_id=$YC_FOLDER_ID
 ```
 

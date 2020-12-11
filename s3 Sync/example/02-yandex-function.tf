@@ -35,3 +35,5 @@ resource "yandex_function_trigger" "s3_sync" {
       delete = false
   }
 }
+
+ 
