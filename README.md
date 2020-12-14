@@ -29,4 +29,4 @@ To adress these scenarios we decided to implement best practises and automation 
 
 
 ## Customer stories or examples
-Spotify?? anything else?
+
