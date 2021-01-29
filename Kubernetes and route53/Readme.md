@@ -19,7 +19,7 @@ You can add other solutions from this library - for example
 
 - Accounts in AWS and Yandex.Cloud
 - Bash
-- Terraform 
+- Terraform 0.13
 - curl
 - jq
 

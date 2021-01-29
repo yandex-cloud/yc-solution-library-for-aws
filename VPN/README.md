@@ -13,7 +13,7 @@ Lets follow the example to see how its works
 
 - Accounts in AWS and Yandex.Cloud
 - Bash
-- Terraform 
+- Terraform 0.14
 - jq
 
 To configre AWS Site

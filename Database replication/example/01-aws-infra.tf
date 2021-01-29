@@ -44,14 +44,14 @@ module "db" {
   storage_encrypted = false
 
   # kms_key_id        = "arm:aws:kms:<region>:<account id>:key/<kms key id>"
-  name = "demodb"
+  name = var.db_name
 
   # NOTE: Do NOT use 'user' as the value for 'username' as it throws:
   # "Error creating DB Instance: InvalidParameterValue: MasterUsername
   # user cannot be used as it is a reserved word used by the engine"
-  username = "demouser"
+  username = var.db_user
 
-  password = "YourPwdShouldBeLongAndSecure!"
+  password = var.db_password
   port     = "5432"
 
   vpc_security_group_ids = [data.aws_security_group.default.id]
@@ -63,7 +63,7 @@ module "db" {
   backup_retention_period = 0
 
   tags = {
-    Owner       = "user"
+    Owner       = var.db_user
     Environment = "dev"
   }
 

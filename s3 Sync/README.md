@@ -21,7 +21,7 @@ Lets follow the example to see how its works
 
 - Accounts in AWS and Yandex.Cloud
 - Bash
-- Terraform 
+- Terraform 0.14
 - [s3cmd](https://s3tools.org/download)
 - jq
 
