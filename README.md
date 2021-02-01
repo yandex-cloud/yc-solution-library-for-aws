@@ -4,8 +4,11 @@ That repository containes a number of base blocks that will help developers and 
 2. <a href="/Database replication/README.md">Example of Database replication between Manged PostgreSQL and RDS using buildin logical replication</a>
 3. <a href="/Kubernetes and route53/README.md)">Example of Kubernetes deployment between cloud and trafi rounting using global DNS</a>
 4. <a href="/s3 Sync/README.md">Example of syncing Yandex object storage and AWS S3 based on Lambda functions</a>
-5. <a href="/System Manager (hybrid instance management)/README.MD">Example and automation for managing instances in Yandex.Cloud using AWS Systems Manager</a>
-6. <a href="/Private link between AWS and Yandex/README.md">Guide how to establish Direct connection or private link between clouds</a>
+5. <a href="/Multi-cloud storage with Yandex.Cloud and Amazon S3/README.md"> Guide how to establish multi cloud s3 compatible storage that distributes data between two Clouds  </a>
+6. <a href="/System Manager (hybrid instance management)/README.MD">Example and automation for managing instances in Yandex.Cloud using AWS Systems Manager</a>
+7. <a href="/Private link between AWS and Yandex/README.md">Guide how to establish Direct connection or private link between clouds</a>
+8. <a href="/DynamoDB and YDB/README.md">Guide how to write an application in Yandex.Cloud which is Compatible with AWS Dynamodb</a>
+
 
 We see more other blocks that could be added in repository and planning to add more of these. If you feel that we miss anything please reach out us and describe your scenario via Issues in that Github repository.
 
