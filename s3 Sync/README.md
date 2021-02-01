@@ -12,7 +12,7 @@ If you look inside the code you will notice that it uses the same S3 API both si
 
 # Limitations
 
-Please note that this example syncs only newly created objects. If you want some solution that helps with more scenarious out of the box please refer to <a href="../Multi-cloud storage with Yandex.Cloud and Amazon S3/README.md">Multi-cloud storage with Yandex.Cloud and Amazon S3 guide</a>
+Please note that this example syncs only newly created objects. If you want some solution that helps with more scenarious out of the box please refer to <a href="../Multi-cloud S3 storage/README.md">Multi-cloud storage with Yandex.Cloud and Amazon S3 guide</a>
 
 
 # Syncyng two s3 buckets
