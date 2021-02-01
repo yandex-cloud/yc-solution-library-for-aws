@@ -1,0 +1,26 @@
+{
+  "name": "dynamodb-ydb-example",
+  "version": "1.7.3",
+  "description": "Example of application, which can use either AWS DynamoDB or YDB",
+  "main": "build/index.js",
+  "files": [
+    "build/**"
+  ],
+  "keywords": [
+    "ydb",
+    "dynamodb"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gaploid/yandex.git"
+  },
+  "author": "Alexander Izyurov",
+  "license": "Apache2.0",
+  "dependencies": {
+    "aws-sdk": ">= 2.0.9"
+  },
+  "devDependencies": {
+    "@types/node": "^10.14.13",
+    "typescript": "^3.9.3"
+  }
+}
