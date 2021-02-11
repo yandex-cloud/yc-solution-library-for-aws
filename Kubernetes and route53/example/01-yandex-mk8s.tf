@@ -19,6 +19,8 @@ resource "yandex_resourcemanager_folder_iam_binding" "editor" {
 }
 
 resource "yandex_kubernetes_cluster" "multi_cloud_cluster" {
+  depends_on = [yandex_resourcemanager_folder_iam_binding.editor]
+
   name        = "k8s-ru-cluster01"
 
   network_id = "${yandex_vpc_network.aws_k8s_vpc.id}"
