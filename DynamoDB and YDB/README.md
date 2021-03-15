@@ -1,48 +1,44 @@
 # DynamoDB and YDB
 
-Yandex DB provides API, compatible with AWS DynamoDB. 
-This example demonstrates how to create an application, which can perform database operations on
-AWS database or Yandex database, depending on process environment
+Yandex DB features an API compatible with AWS DynamoDB. In this example, we’ll create an application that can perform database operations on AWS or Yandex databases depending on the process environment.
 
-## Install required software
+## Installing required software
 
-install [nodejs](https://nodejs.org/)
+Install [nodejs.](https://nodejs.org/)
 
-run `npm install` to installr required libraries
+Run `npm install` to install the required libraries.
 
-## Setup for DynamoDB (local)
+## Setting up DynamoDB (local)
 
-Install [local DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
+Install [DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
 
-Prepare environment:
+Prepare the environment:
 ```shell
 export AWS_ENDPOINT=http://localhost:8000
 export AWS_ACCESS_KEY_ID=fakeAccessKeyId
 export AWS_SECRET_ACCESS_KEY=fakeSecretAccessKey
 ```
 
-## Setup for DynamoDb (Web service)
+## Setting up DynamoDB (Web Service)
 
-Set up an access key, see [ Setting Up DynamoDB (Web Service)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SettingUp.DynamoWebService.html)
+To get an access key, see [ Setting Up DynamoDB (Web Service)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SettingUp.DynamoWebService.html)
 
-Prepare environmentL
+Prepare the environment:
 ```shell
 unset AWS_ENDPOINT # use default endpoint
 export AWS_ACCESS_KEY_ID=#your access key id here
 export AWS_SECRET_ACCESS_KEY=#your secret access key here
 ```
 
-## Setup for YDB
+## Set up YDB
 
-Create a Serverless Database - [Creating a database](https://cloud.yandex.com/docs/ydb/quickstart/create-db).
-At Overview tab find **Document API endpoint**
+To create a serverless database, see [Creating a database](https://cloud.yandex.com/docs/ydb/quickstart/create-db). On the Overview tab, find **Document API endpoint**.
 
-Create a [service account](https://cloud.yandex.com/docs/iam/operations/sa/create), grant `ydb.admin` role to the account.
+Create a [service account](https://cloud.yandex.com/docs/iam/operations/sa/create) and grant the `ydb.admin` role to the account.
 
-Create [static access keys](https://cloud.yandex.com/docs/iam/operations/sa/create-access-key) for the account.
-Save key id and secret key.
+Create [static access keys](https://cloud.yandex.com/docs/iam/operations/sa/create-access-key) for the account. Save the key ID and secret key.
 
-Prepare environment:
+Prepare the environment:
 ```shell
 export AWS_ENDPOINT=#Document API endpoint
 export AWS_ACCESS_KEY_ID=#your key id here
@@ -51,17 +47,15 @@ export AWS_SECRET_ACCESS_KEY=#your secret key here
 
 ## Running examples
 
-Run `node create-table.js`. In the output note the value of `TableStatus`.
-If it is 'Active', the table is ready for use. If it is 'Creating', wait for a while and
-run `node describe-table.js`. Repeate until the status is 'Active'.
+Run `node create-table.js`. In the output, check the `TableStatus` value. 
+If it’s Active, the table is ready for use; if it’s Creating, wait a short while and then run `node describe-table.js`. Repeat until the status is Active.
 
-Add some data into the table - run `node load-data.js`. It uses BatchWriteItem operation to put a few items into the table.
+Add data to the table: run `node load-data.js`. It uses the BatchWriteItem operation to add a few items to the table.
 
-Run `node scan.js` to see all items.
-Run `node query.js` to see only items with species='cat'.
+Run `node scan.js` to view all items.
+Run `node query.js` to only view items where species='cat'.
 
-Run `node update,js` to update an existing item, `node delete-item.js`
-to delete an item.
+Run `node update,js` to update an existing item and `node delete-item.js` to delete one.
 
 Run `node scan.js` again to see the changes in the table data.
 
