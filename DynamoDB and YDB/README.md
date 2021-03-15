@@ -10,7 +10,7 @@ Run `npm install` to install the required libraries.
 
 ## Setting up DynamoDB (local)
 
-Install [DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
+Install [DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html).
 
 Prepare the environment:
 ```shell
