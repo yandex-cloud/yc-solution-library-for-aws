@@ -21,7 +21,7 @@ export AWS_SECRET_ACCESS_KEY=fakeSecretAccessKey
 
 ## Setting up DynamoDB (Web Service)
 
-To get an access key, see [ Setting Up DynamoDB (Web Service)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SettingUp.DynamoWebService.html)
+To get an access key, see [ Setting Up DynamoDB (Web Service)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SettingUp.DynamoWebService.html).
 
 Prepare the environment:
 ```shell
@@ -32,7 +32,7 @@ export AWS_SECRET_ACCESS_KEY=#your secret access key here
 
 ## Set up YDB
 
-To create a serverless database, see [Creating a database](https://cloud.yandex.com/docs/ydb/quickstart/create-db). On the Overview tab, find **Document API endpoint**.
+To create a serverless database, see [Creating a database](https://cloud.yandex.com/docs/ydb/quickstart/create-db). On the **Overview** tab, find **Document API endpoint**.
 
 Create a [service account](https://cloud.yandex.com/docs/iam/operations/sa/create) and grant the `ydb.admin` role to the account.
 
