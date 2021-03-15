@@ -12,7 +12,7 @@ This repository contains a number of base blocks that will help developers and D
 
 We are always open to new ideas for adding blocks to the repository. If you think we missed something, please contact us and describe your scenario in the GitHub repository under Issues.
 
-## Why we did
+## Why we did it
 We’ve observed more and more customers using cloud technology for a wide variety of reasons. For example:
 1. A Russian company that wants to start working with customers outside Russia and increase the quality of their services by deploying additional services via other cloud providers. This might be a game studio where latency is important, an ecommerce website, or a number of other situations.
 2. Companies that want to start operating in Russia and increase the quality of their services or comply with the federal laws on private data.
