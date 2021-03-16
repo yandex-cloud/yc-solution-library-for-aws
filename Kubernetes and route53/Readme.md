@@ -1,18 +1,17 @@
 
 ## Overview and target scenario 
-This scenario specifically targets customers who have chosen Kubernetes as their base PaaS technology. This customers could have users for their application that are located in locations where AWS doesn't have its data centers ( like Russia )
-As a Solution this users can deploy satellite Kubernetes Cluster in Yandex.Cloud and add services from this clusters to Global service management system.
+This scenario specifically targets customers who have chosen Kubernetes as their base PaaS technology. These customers may have users in regions where AWS doesn't have data centers (such as Russia). To solve this issue, users can deploy a Kubernetes satellite cluster on Yandex.Cloud and add services from their clusters to the Global Service Management system.
 
-For example in this solution you can have a Main application installed in AWS and satellite application installed in Yandex.Cloud. Both applications use Route53 with Regional Forwarding that forward requests from US to US site and Russian requests to Russian site.
+For example, in this solution, you can have a main application installed on AWS and a satellite application installed on Yandex.Cloud. Both applications use Route 53 with regional forwarding, which forwards requests from the US to a US site and Russian requests to a Russian site.
 
 
 ![Replication Diagram](Diagram.png "Replication Diagram")
 
 
-You can add other solutions from this library - for example 
-- VPN solution could help you to create secure channels between sites
-- RDS or AWS replication scenarios to help you sync your data
-- [Kubefed](https://github.com/kubernetes-sigs/kubefed) to federate Kubernetes control plane. Please note that Kubefed is in alpha state and not recomended for production use.
+You can add other solutions from this library. For example:
+- The VPN solution to create secure channels between sites.
+- RDS or AWS replication to sync data.
+- [Kubefed](https://github.com/kubernetes-sigs/kubefed) to decentralize the Kubernetes federation control plane. Please note that KubeFed is currently in the alpha stage and not recommended for production use.
 
 
 ## Prerequisites
@@ -23,29 +22,29 @@ You can add other solutions from this library - for example
 - curl
 - jq
 
-To configre AWS Site
-- Configure AWS CLI 
-- install [AWS iam authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
+Configure the AWS site:
+- Configure AWS CLI.
+- Install [AWS iam authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html).
 
-To configure Yandex.Cloud part
-- Configure  [YC CLI](https://cloud.yandex.com/docs/cli/quickstart) 
-- Export Yandex Cloud Credentials for Provider
+Configure Yandex.Cloud:
+- Configure the [Yandex Cloud CLI](https://cloud.yandex.com/docs/cli/quickstart).
+- Export Yandex Cloud Credentials for Provider:
 
 ```
 export YC_TOKEN=$(yc config get token)
 export YC_CLOUD_ID=$(yc config get cloud-id)
 export YC_FOLDER_ID=$(yc resource-manager folder get --name=default --format=json | jq -r .id)
 ```
-This example uses folder 'default' for Yandex.Cloud , if you want to use another folder pleaase use 
+This example uses the 'default' folder for Yandex.Cloud.  
 
 
 ## Quick start
 
 
-### Initiate example playbook.  
+### Initiate an example playbook 
 
 
-Please note that it uses "~/.ssh/id_rsa.pub" path for your public key. 
+Please note that this uses the path ~/.ssh/id_rsa.pub for public keys:
 
 ```
 cd example
@@ -54,15 +53,15 @@ terraform apply # use -var=public_key_path='another_path_to_ssh_public_key' if y
 ```
 
 
-### Wait for about 10 Minites...
+### Wait about 10 minutes
 
-Note.  you have problems with provisioning pods on EKS cluster please use commands bellow
+If you have problems provisioning pods in the EKS cluster, use the commands below:
 
 
-1) get aws cluster name
-2) configure  cluster credentials and reapply terraform
+1) Get an AWS cluster name.
+2) Configure cluster credentials and reapply terraform.
 
-eg
+For example:
 ```
 CLUSTER_NAME=aws eks list-clusters | jq -r .clusters[0]
 aws eks --region us-west-2 update-kubeconfig --name $CLUSTER_NAME
@@ -72,21 +71,21 @@ terraform apply
 ### Check the result
 
 
-You can curl both pods deployed in multiple clusters
+You can run curl for both pods deployed in multiple clusters:
 
 ```
 curl $(terraform output eks_lb_ip)
 curl $(terraform output yc_lb_ip)
 ```
 
-to check whether route 53 global dns works please 
+Check if the Route 53 Global DNS is working:
 
-1) Go to AWS Console 
-2) Choose Route53 Service
-3) Choose 'aws-yandex-example.com' 
-4) Press "Test Connection"
+1) Go to the **AWS Console**.
+2) Choose **Route 53 Service**.
+3) Choose **aws-yandex-example.com**.
+4) Click **Test Connection**.
 
-test www record with from different resolver addresses
+Test the WWW record from different resolver addresses:
 
-1) You can Google address as US resolver 8.8.8.8 
-2) You can use Yandex ip address as RU resolver 87.250.250.1
+1) You can use a Google DNS IP address as the US resolver: 8.8.8.8.
+2) You can use a Yandex IP address as the RU resolver: 87.250.250.1.
