@@ -1,24 +1,23 @@
 # Description
 
-This scenario shows how to leverage AWS Lambda functions and Yandex Cloud Functions to sync newly created objects in AWS S3 and Yandex Object Storage.
+This scenario explains how to leverage AWS Lambda functions and Yandex Cloud Functions to sync newly created objects on AWS S3 and Yandex Object Storage.
 
-Example uses the same function code for both sides as Yandex Cloud Functions and AWS Lambda Runtimes are compatible.
+The example uses the same function code for both sides, as Yandex Cloud Functions and AWS Lambda runtimes are compatible.
 
-If you look inside the code you will notice that it uses the same S3 API both sides as AWS S3 and Yandex Storage API's are compatible.
-
+If you look at the code, you’ll notice that it uses the same S3 API for both sides, as the AWS S3 and Yandex Storage APIs are compatible.
 
 
 ![Replication Diagram](Diagram.png "Replication Diagram")
 
 # Limitations
 
-Please note that this example syncs only newly created objects. If you want some solution that helps with more scenarious out of the box please refer to <a href="../Multi-cloud S3 storage/README.md">Multi-cloud storage with Yandex.Cloud and Amazon S3 guide</a>
+Please note that this example syncs only newly created objects. If you want some solution that helps with more scenarious out of the box please refer to <a href="../Multi-cloud S3 storage/README.md">Multi-cloud storage with Yandex.Cloud and Amazon S3 guide</a>.
 
 
-# Syncyng two s3 buckets
+# Syncing two S3 buckets
 
-Lets follow the example to see how its works
-
+Review the following example to see how syncing works.
+You will need:
 
 - Accounts in AWS and Yandex.Cloud
 - Bash
@@ -26,13 +25,13 @@ Lets follow the example to see how its works
 - [s3cmd](https://s3tools.org/download)
 - jq
 
-To configre AWS Site
-- Configure [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
+Configure the AWS site:
+- Configure the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
 
 
-To configure Yandex.Cloud part
-- Configure  [YC CLI](https://cloud.yandex.com/docs/cli/quickstart) 
-- Export Yandex Cloud Credentials for Provider
+Configure Yandex.Cloud:
+- Configure the [YC CLI](https://cloud.yandex.com/docs/cli/quickstart) 
+- Export Yandex Cloud Credentials for Provider:
 
 ```
 export YC_TOKEN=$(yc config get token)
@@ -43,9 +42,7 @@ export YC_FOLDER_ID=$(yc config get folder-id)
 
 ## Quick start
 
-### Initiate example playbook.  
-
-
+### Initiate an example playbook  
 
 ```
 cd example
@@ -54,28 +51,26 @@ terraform apply -var=folder_id=$YC_FOLDER_ID
 
 ```
 
-
-
 ### Check the result
 
-We will use 
+We’ll use:
 - aws  as AWS site
 - s3cmd as Yandex.Cloud site
 
-lets prepare them
+Prepare both sites:
 
 ```
 $ export BUCKET_NAME=$(terraform output bucket_name)
 $ mv s3cfg ~/.s3cfg
 ```
 
-Check that buckets are empty
+Make sure the buckets are empty:
 ```
 $ aws s3 ls $BUCKET_NAME
 $ s3cmd ls  s3://$BUCKET_NAME
 ```
 
-put file to Yandex.Cloud bucket 
+Put the file into the Yandex.Cloud bucket:
 
 ```
 $ s3cmd put sync.zip s3://$BUCKET_NAME s3cmd put sync.zip s3://$BUCKET_NAME
@@ -83,14 +78,14 @@ upload: 'sync.zip' -> 's3://yc-s3-sync-a6v4g3vlra/sync.zip'  [1 of 1]
  2551 of 2551   100% in    0s    24.73 KB/s  done
 ```
 
-check that file is on place
+Check that the file is in place:
 
 ```
 $ s3cmd ls  s3://$BUCKET_NAME
 2020-12-08 18:41         2551  s3://yc-s3-sync-a6v4g3vlra/sync.zip
 ```
 
-check that file is synced to AWS
+Check that the file is synced on AWS:
 
 ```
 $ aws s3 ls $BUCKET_NAME
@@ -100,13 +95,13 @@ $ aws s3 ls $BUCKET_NAME
 
 ### End the lab
 
-Delete created objects
+Delete all created objects:
 
 ```
 $ aws s3 rm s3://$BUCKET_NAME/sync.zip
 $ s3cmd rm s3://$BUCKET_NAME/sync.zip
 ```
-Destroy the example
+Destroy the example.
 ```
 $ terraform destroy -var=folder_id=$YC_FOLDER_ID
 ```
