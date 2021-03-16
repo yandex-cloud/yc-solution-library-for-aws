@@ -1,5 +1,5 @@
-# Yandex.cloud and AWS integration pack
-This repository contains a number of base blocks that will help developers and DevOps engineers build hybrid solutions between clouds. We tried to identify the most common tasks that developers encounter while architecting or developing solutions, described the best practices, and provided examples of automation using Terraform for building blocks. The repository contains descriptions of common scenarios and consists of the following modules:
+# Yandex.Cloud Solution Library for AWS
+This repository contains a number of building blocks that will help developers and DevOps engineers build hybrid solutions between clouds. We at Yandex Cloud tried to identify the most common tasks that developers encounter while architecting or developing solutions, described the best practices, and provided examples of automation using Terraform for building blocks. The repository contains descriptions of common scenarios and consists of the following modules:
 1. <a href="/VPN/README.md">Automation for a VPN between Yandex.Cloud and AWS</a>
 2. <a href="/Database replication/README.md">Example of database replication between managed PostgreSQL and RDS using logical replication</a>
 3. <a href="/Kubernetes and route53/README.md)">Example of Kubernetes deployment between clouds and traffic routing using a global DNS</a>
