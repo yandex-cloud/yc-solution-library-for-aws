@@ -17,10 +17,9 @@ We recommend Yandex.Cloud users deploy Flexify.IO from [Yandex.Cloud Marketplace
 
 
 - In the [Yandex.Cloud Console](https://console.cloud.yandex.com/) choose **Create VM** in the Compute Cloud section.
-- In the **Image/boot disk** selection, select **Cloud Marketplace** and click **Show More**.
+- In the **Image/boot disk** section, select **Cloud Marketplace** and click **Show More**.
 - Search for Flexify and select the latest version of Flexify.IO as the base image. 
 ![](./pics/gV8NhTAoylfkCPJ9mFidc_image.png "")
-
 
 
 - Specify the CPU and RAM for the VM based on your projected usage (we recommend at least 2 CPU and 4 GB RAM), your login, and public SSH key. Click **Create VM**.
@@ -30,7 +29,7 @@ It may take a few minutes for the VM to start. Please wait for the Create accoun
 ### 
 If you choose to connect to the VM over HTTPS, note that the initial SSL certificate will be self-signed and won’t automatically be accepted by most browsers. 
 
-- Create an account with a username or email address and a password. You’ll use this later to sign in to the Flexify.IO installation.
+- Create an account with a username or email address and a password. You’ll use this later to sign in to the Flexify.IO instance.
 ![](./pics/H3qBiZ_N5tyOP63pFHi3a_sign_up.jpg
  "")
 ## Adding storage accounts to Flexify.IO
@@ -92,13 +91,13 @@ Once you have added your storage accounts to Flexify.IO, you can copy or transfe
 
 
 - On the **Data** tab, click **Transfer Data** (or click **New Migration** on the **Migrations** tab).
-- In the **From** field, select one or more buckets to migrate data from.
-- In the **To** field, choose Yandex.Cloud Object Storage. You can select any existing bucket or let Flexify.IO create a new one 
+- In the **From** box, select one or more buckets to migrate data from.
+- In the **To** box, choose choose Yandex.Cloud Object Storage. You can select any existing bucket or let Flexify.IO create a new one. 
 ![Migrating%20data%20from%20Amazon%20S3%20to%20Yandex.Cloud%20with%20Flexify.IO](./pics/11.png)
 
 
 ### About bucket names
-You can enter any name for a new bucket. However, make sure that the bucket name is globally unique. Even if someone else already has a bucket with the same name, you will be able to use it. 
+You can enter any name for a new bucket. However, make sure that the bucket name is globally unique. Even if someone else already has a bucket with the same name, you won’t be able to use it. 
 
 - _Optionally_, click Advanced settings and fine-tune the migration setting. 
 - Click Start Migration and monitor the migration progress.
@@ -119,7 +118,7 @@ To configure a Flexify.IO virtual endpoint:
 
 - Click (+) again to attach Amazon S3 storage to the virtual endpoint. 
 ![](./pics/15.png)
-Now all objects from Yandex.Cloud and Amazon S3 are combined and available via the S3-compatible endpoint on your Flexify.IO virtual machine. You’ll need to direct your application to use your machine's IP address (such as 178.154.254.21 in this example) with the access key and the secret key given in the endpoint settings.
+Now all objects from Yandex.Cloud and Amazon S3 are combined and available via the S3-compatible endpoint on your Flexify.IO virtual machine. You’ll need to configure your application to use your machine's IP address (such as 178.154.254.21 in this example) with the access key and the secret key given in the endpoint settings.
 
 ![Configuring%20CyberDuck%20to%20use%20Flexify.IO%20Endpoint](./pics/16.png)
 
