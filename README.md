@@ -30,7 +30,7 @@ An example of setting up Route 53 between Yandex.Cloud and AWS can be found [her
 ### **Website with dependent or centralized databases**
 This is a more advanced scenario that requires you to collect data in a centralized location for further analysis or analytics.
 <p align="center">
-    <img src="./images/centralized-db.png" alt="Web-site with centralized DB" width="400"/>
+    <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-centralizeddb.png" alt="Web-site with centralized DB" width="400"/>
 </p>
 Examples to help build this architecture:
 
@@ -43,7 +43,7 @@ Examples to help build this architecture:
 ### **Centralized data warehouse on AWS and app deployment on Yandex.Cloud**
 Another common scenario is creating a data lake on AWS. Your website or application can operate in different countries and regions and on different cloud providers, but you need to collect all the information from distributed locations in one place. Below is an example of how that can be done. Data without personalized attributes is created on the Yandex.Cloud side and written to object storage, which is located physically within the country. Object storage then triggers a Yandex function, which uploads the object to the centralized object storage on AWS.  
 <p align="center">
-    <img src="./images/data-lake.png" alt="Centralized Data-lake or DataWarehouse" width="500"/>
+    <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-datalake.png" alt="Centralized Data-lake or DataWarehouse" width="500"/>
 </p>
 Examples to help build this architecture:
 
