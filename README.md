@@ -22,7 +22,7 @@ To address these scenarios, we decided to implement best practices and automatio
 ### **Website with independent deployment and global routing**
 This is an example of a website that works independently on both clouds to be closer to end users and compliant with local private data laws and regulations. Routing is established by a global DNS via Amazon Route 53, which can route users based on their location or latency.
 <p align="center">
-    <img src="./images/classic-web-site.png" alt="Classic web-site diagram on multi-cloud" width="400"/>
+    <img src="./images/yc-solution-library-aws-website-website.png" alt="Classic web-site diagram on multi-cloud" width="400"/>
 </p>
 An example of setting up Route 53 between Yandex.Cloud and AWS can be found [here](link)
 
