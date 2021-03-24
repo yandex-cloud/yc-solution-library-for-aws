@@ -7,7 +7,9 @@ The example uses the same function code for both sides, as Yandex Cloud Function
 If you look at the code, you’ll notice that it uses the same S3 API for both sides, as the AWS S3 and Yandex Storage APIs are compatible.
 
 
-![Replication Diagram](Diagram.png "Replication Diagram")
+<p align="center">
+    <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-s3.png" alt="Classic web-site diagram on multi-cloud" width="800"/>
+</p>
 
 # Limitations
 
