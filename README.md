@@ -22,7 +22,7 @@ To address these scenarios, we decided to implement best practices and automatio
 ### **Website with independent deployment and global routing**
 This is an example of a website that works independently on both clouds to be closer to end users and compliant with local private data laws and regulations. Routing is established by a global DNS via Amazon Route 53, which can route users based on their location or latency.
 <p align="center">
-    <img src=".https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-website.png" alt="Classic web-site diagram on multi-cloud" width="600"/>
+    <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-website.png" alt="Classic web-site diagram on multi-cloud" width="600"/>
 </p>
 An example of setting up Route 53 between Yandex.Cloud and AWS can be found [here](link)
 
@@ -43,7 +43,7 @@ Examples to help build this architecture:
 ### **Centralized data warehouse on AWS and app deployment on Yandex.Cloud**
 Another common scenario is creating a data lake on AWS. Your website or application can operate in different countries and regions and on different cloud providers, but you need to collect all the information from distributed locations in one place. Below is an example of how that can be done. Data without personalized attributes is created on the Yandex.Cloud side and written to object storage, which is located physically within the country. Object storage then triggers a Yandex function, which uploads the object to the centralized object storage on AWS.  
 <p align="center">
-    <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-datalake.png" alt="Centralized Data-lake or DataWarehouse" width="500"/>
+    <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-datalake.png" alt="Centralized Data-lake or DataWarehouse" width="600"/>
 </p>
 Examples to help build this architecture:
 
@@ -54,7 +54,7 @@ Examples to help build this architecture:
 ### **Kubernetes applications on multi clouds**
 Kubernetes is an extremely popular technology for building apps. This scenario shows how you can build a distributed app based on Kubernetes. The state of the app in the database can be synced. You can also enhance this architecture using KubeFed or Istio to establish a federation of Kubernetes resources between clusters.    
 <p align="center">
-    <img src="./images/kubernetes.png" alt="Distributed Kubernetes app" width="500"/>
+    <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-kubernetes.png" alt="Distributed Kubernetes app" width="600"/>
 </p>
 Examples to help build this architecture:
 
@@ -73,7 +73,7 @@ In some cases, apps can work completely independently and you don’t need to sy
 * Access control
 * Inventory management
 <p align="center">
-    <img src="./images/management.png" alt="Fleet management" width="500"/>
+    <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-monitoring.png" alt="Fleet management" width="600"/>
 </p>
 Examples to help build this architecture:
 
