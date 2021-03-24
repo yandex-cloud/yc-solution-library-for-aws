@@ -6,7 +6,7 @@ For example, in this solution, you can have a main application installed on AWS 
 
 
 <p align="center">
-    <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-k8cloud.png" alt="Classic web-site diagram on multi-cloud" width="600"/>
+    <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-k8cloud.png" alt="Classic web-site diagram on multi-cloud" width="800"/>
 </p>
 
 
