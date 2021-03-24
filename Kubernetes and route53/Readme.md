@@ -5,7 +5,9 @@ This scenario specifically targets customers who have chosen Kubernetes as their
 For example, in this solution, you can have a main application installed on AWS and a satellite application installed on Yandex.Cloud. Both applications use Route 53 with regional forwarding, which forwards requests from the US to a US site and Russian requests to a Russian site.
 
 
-![Replication Diagram](Diagram.png "Replication Diagram")
+<p align="center">
+    <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-k8cloud.png" alt="Classic web-site diagram on multi-cloud" width="600"/>
+</p>
 
 
 You can add other solutions from this library. For example:
