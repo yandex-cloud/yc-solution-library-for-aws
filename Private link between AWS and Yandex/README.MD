@@ -9,7 +9,9 @@ Learn more about [AWS Direct Connect](https://docs.aws.amazon.com/directconnect/
 ## High-level diagram
 Below you’ll find a high-level diagram of a private connection between AWS and Yandex.Cloud via a third-party partner: a telecom provider.
 
-![Private link between AWS and Yandex Cloud Diagram](private_link_diagram.png "Private link between AWS and Yandex Cloud Diagram")
+<p align="center">
+    <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-crossconnection.png" alt="Classic web-site diagram on multi-cloud" width="800"/>
+</p>
 
 To establish a connection, you need to set up a configuration in both cloud consoles and work with a partner that can create the physical connection. 
 
