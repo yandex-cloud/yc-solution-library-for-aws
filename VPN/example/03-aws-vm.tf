@@ -17,16 +17,16 @@ data "aws_ami" "ubuntu" {
 
 data "template_file" "aws_vm_cloud_init" {
   template = file("metadata/aws-vm.tpl.yaml")
-  vars =  {
+  vars = {
 
-        ssh_key = file(var.public_key_path)
-    
-    }
+    ssh_key = file(var.public_key_path)
+
+  }
 }
 
 
 resource "aws_instance" "user_vm" {
-    ami           = data.aws_ami.ubuntu.id
+  ami = data.aws_ami.ubuntu.id
 
   instance_type               = "t2.micro"
   subnet_id                   = aws_subnet.aws_demo_subnet.id
@@ -35,7 +35,7 @@ resource "aws_instance" "user_vm" {
   user_data                   = data.template_file.aws_vm_cloud_init.rendered
 
   tags = {
-     Name = "yandex-vpc-demo"
+    Name = "yandex-vpc-demo"
   }
 }
 

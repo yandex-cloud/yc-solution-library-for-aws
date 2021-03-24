@@ -1,15 +1,10 @@
-provider "yandex" {
-
-  version = "~> 0.45"
-}
-
 
 provider "aws" {
-  profile = "default"
-  region  = "us-west-2"
-  version = "~> 3.10"
-}
+  profile                 = "default"
+  region                  = var.region
+  shared_credentials_file = "$HOME/.aws/credentials"
 
+}
 
 terraform {
   required_version = ">= 0.13"
@@ -17,44 +12,33 @@ terraform {
   required_providers {
     yandex = {
       source  = "yandex-cloud/yandex"
-      version = "~> 0.45"
+      version = "~> 0.5"
     }
     aws = {
       source  = "hashicorp/aws"
       version = "~> 3.10"
     }
     kubernetes = {
-      source = "hashicorp/kubernetes"
+      source  = "hashicorp/kubernetes"
+      version = "1.13.3"
     }
     local = {
-      source = "hashicorp/local"
+      source  = "hashicorp/local"
+      version = "~> 1.2"
     }
     null = {
-      source = "hashicorp/null"
+      source  = "hashicorp/null"
+      version = "~> 2.1"
     }
     random = {
-      source = "hashicorp/random"
+      source  = "hashicorp/random"
+      version = "~> 2.1"
     }
     template = {
-      source = "hashicorp/template"
+      source  = "hashicorp/template"
+      version = "~> 2.1"
     }
   }
 }
 
 
-
-provider "random" {
-  version = "~> 2.1"
-}
-
-provider "local" {
-  version = "~> 1.2"
-}
-
-provider "null" {
-  version = "~> 2.1"
-}
-
-provider "template" {
-  version = "~> 2.1"
-}

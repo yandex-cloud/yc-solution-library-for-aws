@@ -1,9 +1,7 @@
-data "yandex_client_config" "client" {}
-
 
 provider "kubernetes" {
-  load_config_file = false
-  alias  = "yc_mk8s"
+  load_config_file       = false
+  alias                  = "yc_mk8s"
   host                   = yandex_kubernetes_cluster.multi_cloud_cluster.master.0.external_v4_endpoint
   cluster_ca_certificate = yandex_kubernetes_cluster.multi_cloud_cluster.master.0.cluster_ca_certificate
   token                  = data.yandex_client_config.client.iam_token
@@ -12,9 +10,9 @@ provider "kubernetes" {
 
 
 resource "kubernetes_pod" "mk8s_nginx" {
-  depends_on = [ yandex_kubernetes_node_group.multi_cloud_node_group]
+  depends_on = [yandex_kubernetes_node_group.multi_cloud_node_group]
 
-  provider = "kubernetes.yc_mk8s"
+  provider = kubernetes.yc_mk8s
   metadata {
     name = "nginx-example"
     labels = {
@@ -35,7 +33,7 @@ resource "kubernetes_pod" "mk8s_nginx" {
 }
 
 resource "kubernetes_service" "mk8s_nginx" {
-  provider = "kubernetes.yc_mk8s"
+  provider = kubernetes.yc_mk8s
 
   metadata {
     name = "nginx-example"

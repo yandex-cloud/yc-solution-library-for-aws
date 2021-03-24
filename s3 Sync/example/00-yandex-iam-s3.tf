@@ -16,7 +16,7 @@ resource "yandex_iam_service_account_static_access_key" "sa_static_key" {
 }
 
 resource "random_string" "project_suffix" {
-  length = 10
+  length  = 10
   upper   = false
   lower   = true
   number  = true
@@ -24,10 +24,10 @@ resource "random_string" "project_suffix" {
 }
 
 resource "yandex_storage_bucket" "aws_yc_sync" {
-  bucket = "yc-s3-sync-${random_string.project_suffix.result}"
+  bucket     = "yc-s3-sync-${random_string.project_suffix.result}"
   access_key = yandex_iam_service_account_static_access_key.sa_static_key.access_key
   secret_key = yandex_iam_service_account_static_access_key.sa_static_key.secret_key
-  acl    = "private"
+  acl        = "private"
   depends_on = [yandex_resourcemanager_folder_iam_member.sa_admin]
 }
 
@@ -46,6 +46,6 @@ locals {
 
 
 resource "local_file" "s3cfg" {
-  content = local.s3cmd_template
+  content  = local.s3cmd_template
   filename = "s3cfg"
 }

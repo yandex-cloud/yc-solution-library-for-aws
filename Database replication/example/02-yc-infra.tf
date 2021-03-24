@@ -39,8 +39,8 @@ resource "yandex_mdb_postgresql_cluster" "foo" {
   }
 
   host {
-    zone      = "ru-central1-a"
-    subnet_id = yandex_vpc_subnet.foo.id
+    zone             = "ru-central1-a"
+    subnet_id        = yandex_vpc_subnet.foo.id
     assign_public_ip = true
   }
 }

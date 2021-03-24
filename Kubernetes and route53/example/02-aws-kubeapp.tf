@@ -7,7 +7,7 @@ data "aws_eks_cluster_auth" "cluster" {
 }
 
 provider "kubernetes" {
-  alias  = "aws_eks"
+  alias                  = "aws_eks"
   host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.cluster.token
@@ -15,9 +15,8 @@ provider "kubernetes" {
   config_path = "kubeconfig_${data.aws_eks_cluster.cluster.name}"
 }
 
-
 resource "kubernetes_pod" "eks_nginx" {
-  provider = "kubernetes.aws_eks"
+  provider = kubernetes.aws_eks
   metadata {
     name = "nginx-example"
     labels = {
@@ -38,7 +37,7 @@ resource "kubernetes_pod" "eks_nginx" {
 }
 
 resource "kubernetes_service" "eks_nginx" {
-  provider = "kubernetes.aws_eks"
+  provider = kubernetes.aws_eks
 
   metadata {
     name = "nginx-example"

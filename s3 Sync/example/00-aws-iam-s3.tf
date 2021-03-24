@@ -1,5 +1,5 @@
 resource "aws_iam_user" "yandex_sync" {
-    name = "yandex_sync"
+  name = "yandex_sync"
 }
 
 resource "aws_iam_access_key" "yandex_sync" {
@@ -32,8 +32,8 @@ EOF
 
 }
 resource "aws_iam_policy" "yandex_sync" {
-  name        = "yandex_sync"
-  path        = "/"
+  name = "yandex_sync"
+  path = "/"
 
   policy = <<EOF
 {

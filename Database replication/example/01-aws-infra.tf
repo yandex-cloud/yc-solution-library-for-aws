@@ -24,8 +24,8 @@ resource "aws_db_parameter_group" "default" {
 
   parameter {
     apply_method = "pending-reboot"
-    name = "rds.logical_replication"
-    value = "1"
+    name         = "rds.logical_replication"
+    value        = "1"
   }
 }
 
@@ -87,7 +87,7 @@ module "db" {
   # Database Deletion Protection
   deletion_protection = false
 
-  parameter_group_name = "rds-pg"
+  parameter_group_name      = "rds-pg"
   create_db_parameter_group = false
   #parameters = [
   #  {

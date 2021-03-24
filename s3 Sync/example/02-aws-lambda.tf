@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "yandex_sync" {
-  function_name    = "yandex_sync"
-  role             = aws_iam_role.yandex_sync.arn
-  handler          = "main.handler"
+  function_name = "yandex_sync"
+  role          = aws_iam_role.yandex_sync.arn
+  handler       = "main.handler"
 
   source_code_hash = data.archive_file.function.output_base64sha256
   filename         = data.archive_file.function.output_path
@@ -11,11 +11,11 @@ resource "aws_lambda_function" "yandex_sync" {
 
   environment {
     variables = {
-      AMAZON_BUCKET = aws_s3_bucket.aws_yc_sync.id
-      AMAZON_ACCESS_KEY_ID = aws_iam_access_key.yandex_sync.id
-      AMAZON_SECRET_ACCESS_KEY = aws_iam_access_key.yandex_sync.secret 
-      YANDEX_BUCKET = yandex_storage_bucket.aws_yc_sync.id
-      YANDEX_ACCESS_KEY_ID = yandex_iam_service_account_static_access_key.sa_static_key.access_key
+      AMAZON_BUCKET            = aws_s3_bucket.aws_yc_sync.id
+      AMAZON_ACCESS_KEY_ID     = aws_iam_access_key.yandex_sync.id
+      AMAZON_SECRET_ACCESS_KEY = aws_iam_access_key.yandex_sync.secret
+      YANDEX_BUCKET            = yandex_storage_bucket.aws_yc_sync.id
+      YANDEX_ACCESS_KEY_ID     = yandex_iam_service_account_static_access_key.sa_static_key.access_key
       YANDEX_SECRET_ACCESS_KEY = yandex_iam_service_account_static_access_key.sa_static_key.secret_key
     }
   }
@@ -45,7 +45,7 @@ EOF
 resource "aws_lambda_permission" "allow_bucket" {
   statement_id  = "AllowExecutionFromS3Bucket"
   action        = "lambda:InvokeFunction"
-  function_name =  aws_lambda_function.yandex_sync.arn
+  function_name = aws_lambda_function.yandex_sync.arn
   principal     = "s3.amazonaws.com"
   source_arn    = aws_s3_bucket.aws_yc_sync.arn
 }

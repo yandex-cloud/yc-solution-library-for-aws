@@ -63,8 +63,8 @@ If you have problems provisioning pods in the EKS cluster, use the commands belo
 
 For example:
 ```
-CLUSTER_NAME=aws eks list-clusters | jq -r .clusters[0]
-aws eks --region us-west-2 update-kubeconfig --name $CLUSTER_NAME
+CLUSTER_NAME=`aws eks list-clusters --region us-west-1 | jq -r '.clusters[0]'`
+aws eks --region us-west-1 update-kubeconfig --name $CLUSTER_NAME
 terraform apply
 ```
 

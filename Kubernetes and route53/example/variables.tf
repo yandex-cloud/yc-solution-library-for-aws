@@ -1,15 +1,12 @@
 variable "public_key_path" {
   description = "Path to public key file"
-  default = "~/.ssh/id_rsa.pub"
+  default     = "~/.ssh/id_rsa.pub"
 }
-
 
 variable "zone" {
   description = "Yandex Cloud default Zone for provisoned resources"
   default     = "ru-central1-a"
 }
-
-
 
 variable "yandex_subnet_range" {
   description = "family"
@@ -18,13 +15,11 @@ variable "yandex_subnet_range" {
 
 variable "k8s_version" {
   description = "EKS and Mk8s kubernetes version"
-  default     = "1.18"
+  default     = "1.17"
 }
 
-
-
 variable "region" {
-  default = "us-west-2"
+  default = "us-west-1"
 }
 
 variable "map_accounts" {
@@ -74,4 +69,20 @@ variable "map_users" {
       groups   = ["system:masters"]
     },
   ]
+}
+variable "k8s_service_ipv4_range" {
+  type        = string
+  default     = "10.150.0.0/16"
+  description = "CIDR for k8s services"
+}
+
+variable "k8s_pod_ipv4_range" {
+  type        = string
+  default     = "10.140.0.0/16"
+  description = "CIDR for pods in k8s cluster"
+}
+variable "k8s_whitelist" {
+  type        = list(any)
+  default     = ["0.0.0.0/0"]
+  description = "Range of ip-addresses which can access cluster API with kubectl etc"
 }

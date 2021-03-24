@@ -26,9 +26,9 @@ resource "aws_route53_record" "www_us" {
   }
   set_identifier = "us"
   geolocation_routing_policy {
-      country = "US"
+    country = "US"
   }
-  
+
 }
 
 
@@ -42,9 +42,9 @@ resource "aws_route53_record" "www_ru" {
   records        = [kubernetes_service.mk8s_nginx.load_balancer_ingress[0].ip]
   set_identifier = "ru"
   geolocation_routing_policy {
-      country = "RU"
+    country = "RU"
   }
-  
+
 }
 
 output "r53ns" {

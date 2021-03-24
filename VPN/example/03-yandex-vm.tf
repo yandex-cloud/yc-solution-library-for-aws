@@ -1,7 +1,7 @@
 
 
 data "yandex_compute_image" "vm_instance" {
-  family       = "ubuntu-1804-lts"
+  family = "ubuntu-1804-lts"
 }
 
 
@@ -9,11 +9,11 @@ data "yandex_compute_image" "vm_instance" {
 
 data "template_file" "yc_vm_cloud_init" {
   template = file("metadata/vm.tpl.yaml")
-  vars =  {
+  vars = {
 
-        ssh_key = file(var.public_key_path)
-    
-    }
+    ssh_key = file(var.public_key_path)
+
+  }
 }
 
 
@@ -34,9 +34,9 @@ resource "yandex_compute_instance" "user_vm" {
   }
 
   network_interface {
-    subnet_id = module.vpn.yandex_subnet_id
+    subnet_id          = module.vpn.yandex_subnet_id
     security_group_ids = [yandex_vpc_security_group.user_vm_sg.id]
-    nat = true
+    nat                = true
   }
 
   metadata = {
