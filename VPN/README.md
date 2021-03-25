@@ -4,7 +4,9 @@
 If you need to deploy a Site-to-Site VPN connection between Yandex and a VPN, you can use this example and module to set it up.
 
 
-![VPN Diagram](Diagram.png "VPN Diagram")
+<p align="center">
+    <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-vpn.png" alt="Classic web-site diagram on multi-cloud" width="800"/>
+</p>
 
 
 Let’s look at an example to see how it works.
