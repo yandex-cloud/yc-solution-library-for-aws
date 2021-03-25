@@ -1,13 +1,13 @@
 provider "yandex" {
-  version   = "~> 0.45"
+
   folder_id = var.folder_id
 }
 
 
 provider "aws" {
   profile = "default"
-  region  = "us-west-2"
-  version = "~> 3.10"
+  region  = "us-west-1"
+
 }
 
 
@@ -17,7 +17,7 @@ terraform {
   required_providers {
     yandex = {
       source  = "yandex-cloud/yandex"
-      version = "~> 0.45"
+      version = "~> 0.5"
     }
     aws = {
       source  = "hashicorp/aws"

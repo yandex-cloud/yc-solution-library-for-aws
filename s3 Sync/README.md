@@ -62,20 +62,20 @@ We’ll use:
 Prepare both sites:
 
 ```
-$ export BUCKET_NAME=$(terraform output bucket_name)
-$ mv s3cfg ~/.s3cfg
+export BUCKET_NAME=$(terraform output -json | jq -r '.bucket_name.value')
+mv s3cfg ~/.s3cfg
 ```
 
 Make sure the buckets are empty:
 ```
-$ aws s3 ls $BUCKET_NAME
-$ s3cmd ls  s3://$BUCKET_NAME
+aws s3 ls $BUCKET_NAME
+s3cmd ls  s3://$BUCKET_NAME
 ```
 
 Put the file into the Yandex.Cloud bucket:
 
 ```
-$ s3cmd put sync.zip s3://$BUCKET_NAME s3cmd put sync.zip s3://$BUCKET_NAME
+s3cmd put sync.zip s3://$BUCKET_NAME 
 upload: 'sync.zip' -> 's3://yc-s3-sync-a6v4g3vlra/sync.zip'  [1 of 1]
  2551 of 2551   100% in    0s    24.73 KB/s  done
 ```
@@ -83,14 +83,14 @@ upload: 'sync.zip' -> 's3://yc-s3-sync-a6v4g3vlra/sync.zip'  [1 of 1]
 Check that the file is in place:
 
 ```
-$ s3cmd ls  s3://$BUCKET_NAME
+s3cmd ls  s3://$BUCKET_NAME
 2020-12-08 18:41         2551  s3://yc-s3-sync-a6v4g3vlra/sync.zip
 ```
 
 Check that the file is synced on AWS:
 
 ```
-$ aws s3 ls $BUCKET_NAME
+aws s3 ls $BUCKET_NAME
 2020-12-08 21:42:14       2551 sync.zip
 
 ```
@@ -100,12 +100,13 @@ $ aws s3 ls $BUCKET_NAME
 Delete all created objects:
 
 ```
-$ aws s3 rm s3://$BUCKET_NAME/sync.zip
-$ s3cmd rm s3://$BUCKET_NAME/sync.zip
+aws s3 rm s3://$BUCKET_NAME/sync.zip
+s3cmd rm s3://$BUCKET_NAME/sync.zip
+rm ~/.s3cfg
 ```
 Destroy the example.
 ```
-$ terraform destroy -var=folder_id=$YC_FOLDER_ID
+terraform destroy -var=folder_id=$YC_FOLDER_ID
 ```
 
 
