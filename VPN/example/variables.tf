@@ -2,7 +2,11 @@ variable "public_key_path" {
   description = "Path to public key file"
   default     = "~/.ssh/id_rsa.pub"
 }
-
+variable "region" {
+  default     = "us-west-1"
+  type        = string
+  description = "aws region"
+}
 
 variable "zone" {
   description = "Yandex Cloud default Zone for provisoned resources"
