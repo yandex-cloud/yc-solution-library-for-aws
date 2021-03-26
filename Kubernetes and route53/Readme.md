@@ -89,5 +89,5 @@ Check if the Route 53 Global DNS is working:
 
 Test the WWW record from different resolver addresses:
 
-1) You can use a Google DNS IP address as the US resolver: 8.8.8.8.
-2) You can use a Yandex IP address as the RU resolver: 87.250.250.1.
+1) You can use a Google DNS IP address to emulate US client : 8.8.8.8.
+2) You can use a Yandex IP address to emulate RU client: 87.250.250.1.
