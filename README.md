@@ -24,7 +24,7 @@ This is an example of a website that works independently on both clouds to be cl
 <p align="center">
     <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-website.png" alt="Classic web-site diagram on multi-cloud" width="600"/>
 </p>
-An example of setting up Route 53 between Yandex.Cloud and AWS can be found [here]("./Kubernetes and route53/")
+An example of setting up Route 53 between Yandex.Cloud and AWS can be found <a href="/Kubernetes and route53/">here</a>
 
 
 ### **Website with dependent or centralized databases**
