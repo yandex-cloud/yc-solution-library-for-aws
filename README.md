@@ -2,7 +2,7 @@
 This repository contains a number of building blocks that will help developers and DevOps engineers build hybrid solutions between clouds. We at Yandex Cloud tried to identify the most common tasks that developers encounter while architecting or developing solutions, described the best practices, and provided examples of automation using Terraform for building blocks. The repository contains descriptions of common scenarios and consists of the following modules:
 1. <a href="/VPN/">Automation for a VPN between Yandex.Cloud and AWS</a>
 2. <a href="/Database replication/">Example of database replication between managed PostgreSQL and RDS using logical replication</a>
-3. <a href="/Kubernetes and route53/")>Example of Kubernetes deployment between clouds and traffic routing using a global DNS</a>
+3. <a href="/Kubernetes and route53/">Example of Kubernetes deployment between clouds and traffic routing using a global DNS</a>
 4. <a href="/s3 Sync/">Example of syncing Yandex Object Storage and AWS S3 using Lambda functions</a>
 5. <a href="/Multi-cloud S3 storage/">Guide for establishing multi cloud S3-compatible storage that distributes data between two clouds</a>
 6. <a href="/System Manager (hybrid instance management)/">Example and automation for managing instances on Yandex.Cloud using AWS Systems Manager</a>
@@ -24,7 +24,7 @@ This is an example of a website that works independently on both clouds to be cl
 <p align="center">
     <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-website.png" alt="Classic web-site diagram on multi-cloud" width="600"/>
 </p>
-An example of setting up Route 53 between Yandex.Cloud and AWS can be found [here](/Kubernetes and route53/)
+An example of setting up Route 53 between Yandex.Cloud and AWS can be found [here](./Kubernetes and route53/)
 
 
 ### **Website with dependent or centralized databases**
