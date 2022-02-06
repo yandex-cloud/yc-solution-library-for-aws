@@ -15,7 +15,7 @@ Let’s look at an example to see how it works.
 
 - Accounts in AWS and Yandex.Cloud
 - Bash
-- Terraform 0.14
+- Terraform 1.1.5
 - jq
 
 Configure the AWS site:
@@ -32,10 +32,7 @@ export YC_FOLDER_ID=$(yc config get folder-id)
 ## Quick start
 
 
-
-
 ### Initiate an example playbook  
-
 
 Please note that this uses the path "~/.ssh/id_rsa.pub" for public keys: 
 
@@ -54,8 +51,8 @@ Afterwards, you should be able to log in to the user’s virtual machines with y
 Run the following commands:
 
 ```bash
-YC_VM_ADDRESS=$(terraform output yandex_vm_internal_ip_address)
-ssh admin@$(terraform output aws_vm_external_ip_address) "ping $YC_VM_ADDRESS -c 2"
+YC_VM_IP=$(terraform output -raw yandex_vm_internal_ip_address)
+ssh admin@$(terraform output -raw aws_vm_external_ip_address) "ping $YC_VM_IP -c 2"
 ```
 The output should look something like this:
 ```
@@ -67,7 +64,6 @@ PING 10.10.0.28 (10.10.0.28) 56(84) bytes of data.
 --- 10.10.0.28 ping statistics ---
 2 packets transmitted, 2 received, 0% packet loss, time 1001ms
 rtt min/avg/max/mdev = 203.462/208.306/213.150/4.844 ms
-nrkk-osx:example nrkk$ 
 ```
 
 ### Ping from Yandex to AWS
@@ -75,8 +71,8 @@ nrkk-osx:example nrkk$
 Run the following commands:
 
 ```bash
-AWS_VM_ADDRESS=$(terraform output aws_vm_internal_ip_address)
-ssh admin@$(terraform output yandex_vm_external_ip_address) "ping $AWS_VM_ADDRESS -c 2"
+AWS_VM_IP=$(terraform output -raw aws_vm_internal_ip_address)
+ssh admin@$(terraform output -raw yandex_vm_external_ip_address) "ping $AWS_VM_IP -c 2"
 ```
 The output should look something like this:
 ```
@@ -89,11 +85,9 @@ From 10.10.0.10: icmp_seq=1 Redirect Host(New nexthop: 10.10.0.1)
 --- 10.250.0.45 ping statistics ---
 2 packets transmitted, 2 received, 0% packet loss, time 1001ms
 rtt min/avg/max/mdev = 203.688/203.689/203.691/0.451 ms
-nrkk-osx:example nrkk$ 
 ```
 
 ### Destroy everything quickly
-
 
 ```bash
 terraform destroy

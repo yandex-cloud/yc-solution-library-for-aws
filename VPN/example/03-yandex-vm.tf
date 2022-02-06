@@ -1,10 +1,7 @@
 
-
 data "yandex_compute_image" "vm_instance" {
-  family = "ubuntu-1804-lts"
+  family = "ubuntu-2004-lts"
 }
-
-
 
 
 data "template_file" "yc_vm_cloud_init" {
@@ -35,6 +32,7 @@ resource "yandex_compute_instance" "user_vm" {
 
   network_interface {
     subnet_id          = module.vpn.yandex_subnet_id
+    ip_address         = cidrhost(var.yandex_subnet_range, 5)
     security_group_ids = [yandex_vpc_security_group.user_vm_sg.id]
     nat                = true
   }
