@@ -5,7 +5,7 @@ If you need to deploy a Site-to-Site VPN connection between Yandex and a VPN, yo
 
 
 <p align="center">
-    <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-vpn.png" alt="Classic web-site diagram on multi-cloud" width="800"/>
+    <img src="vpn-tunnel.png" alt="VPN tunnel between YC and AWS diagram" width="800"/>
 </p>
 
 
@@ -13,16 +13,17 @@ Let’s look at an example to see how it works.
 
 ## Prerequisites
 
-- Accounts in AWS and Yandex.Cloud
+- Accounts in AWS and Yandex Cloud
 - Bash
 - Terraform 1.1.5
 - jq
 
 Configure the AWS site:
-- Configure the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html).
-Configure Yandex.Cloud:
-- Configure the [YC CLI](https://cloud.yandex.com/docs/cli/quickstart).
-- Export Yandex Cloud Credentials for Provider:
+- Configure the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
+
+Configure Yandex Cloud:
+- Configure the [YC CLI](https://cloud.yandex.com/docs/cli/quickstart)
+- Export Yandex Cloud configuration data for the Terraform provider:
 ```
 export YC_TOKEN=$(yc iam create-token)
 export YC_CLOUD_ID=$(yc config get cloud-id)
@@ -30,7 +31,6 @@ export YC_FOLDER_ID=$(yc config get folder-id)
 ```
 
 ## Quick start
-
 
 ### Initiate an example playbook  
 
