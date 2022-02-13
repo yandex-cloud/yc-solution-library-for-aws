@@ -1,5 +1,5 @@
 resource "yandex_function" "s3_sync" {
-  name              = "s3-sync"
+  name              = var.yc_function_name
   runtime           = "python38"
   entrypoint        = "main.handler"
   memory            = "256"
@@ -21,7 +21,7 @@ resource "yandex_function" "s3_sync" {
 }
 
 resource "yandex_function_trigger" "s3_sync" {
-  name = "s3-sync"
+  name = var.yc_function_name
 
   function {
     id                 = yandex_function.s3_sync.id

@@ -1,6 +1,6 @@
 resource "yandex_iam_service_account" "s3_sync_sa" {
-  name        = "s3-sync-sa"
-  description = "service account to sync s3"
+  name        = var.yc_sync_sa
+  description = "service account to sync S3"
 }
 
 resource "yandex_resourcemanager_folder_iam_member" "sa_admin" {
@@ -32,7 +32,6 @@ resource "yandex_storage_bucket" "aws_yc_sync" {
 }
 
 
-
 output "bucket_name" {
   value = yandex_storage_bucket.aws_yc_sync.id
 }
@@ -43,7 +42,6 @@ locals {
     secret_key = yandex_iam_service_account_static_access_key.sa_static_key.secret_key
   })
 }
-
 
 resource "local_file" "s3cfg" {
   content  = local.s3cmd_template
