@@ -77,7 +77,7 @@ Please wait about 10 minutes when tasks have been finished.
 psql "postgresql://$DB_USER:$DB_PASS@$YC_DB_HOST:$DB_PORT/$DB_NAME" -c "SELECT * FROM phone;"
 ```
 
-### Add more data to the Origin DB  AWS side
+### Add more data to the Origin DB (AWS side)
 ```bash
 psql "postgresql://$DB_USER:$DB_PASS@$AWS_DB_HOST:$DB_PORT/$DB_NAME" -c "INSERT INTO phone(phone, firstname, lastname) VALUES ('444444','Alex','Trump');"
 ```
