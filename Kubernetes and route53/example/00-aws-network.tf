@@ -9,7 +9,7 @@ resource "random_string" "suffix" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "2.77.0"
+  version = "3.11.5"
 
   name                 = "test-vpc"
   cidr                 = "10.0.0.0/16"

@@ -11,8 +11,9 @@ provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.cluster.token
-  load_config_file       = true
-  config_path = "kubeconfig_${data.aws_eks_cluster.cluster.name}"
+  #config_path            = "kubeconfig_${data.aws_eks_cluster.cluster.name}"
+  #config_path            = "~/.kube/config"
+  #config_context         = "aws_eks"
 }
 
 resource "kubernetes_pod" "eks_nginx" {
@@ -26,7 +27,7 @@ resource "kubernetes_pod" "eks_nginx" {
 
   spec {
     container {
-      image = "nginx:1.7.8"
+      image = "nginx:${var.nginx_version}"
       name  = "example"
 
       port {
@@ -56,6 +57,5 @@ resource "kubernetes_service" "eks_nginx" {
 }
 
 output "eks_lb_ip" {
-  value = kubernetes_service.eks_nginx.load_balancer_ingress[0].hostname
+  value = kubernetes_service.eks_nginx.status.0.load_balancer.0.ingress.0.hostname
 }
-

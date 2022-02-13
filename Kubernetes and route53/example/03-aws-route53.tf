@@ -1,7 +1,7 @@
 
 
 locals {
-  lb_name_parts = split("-", split(".", kubernetes_service.eks_nginx.load_balancer_ingress.0.hostname).0)
+  lb_name_parts = split("-", split(".", kubernetes_service.eks_nginx.status.0.load_balancer.0.ingress.0.hostname).0)
 }
 
 data "aws_elb" "eks_svc" {
@@ -9,9 +9,8 @@ data "aws_elb" "eks_svc" {
 }
 
 
-
 resource "aws_route53_zone" "main" {
-  name = "aws-yandex-example.com"
+  name = var.aws_domain_name
 }
 
 resource "aws_route53_record" "www_us" {
@@ -20,7 +19,7 @@ resource "aws_route53_record" "www_us" {
   type    = "A"
 
   alias {
-    name                   = kubernetes_service.eks_nginx.load_balancer_ingress[0].hostname
+    name                   = kubernetes_service.eks_nginx.status.0.load_balancer.0.ingress.0.hostname
     zone_id                = data.aws_elb.eks_svc.zone_id
     evaluate_target_health = true
   }
@@ -31,15 +30,13 @@ resource "aws_route53_record" "www_us" {
 
 }
 
-
-
 resource "aws_route53_record" "www_ru" {
   zone_id = aws_route53_zone.main.zone_id
   name    = "aws"
   type    = "A"
   ttl     = "5"
 
-  records        = [kubernetes_service.mk8s_nginx.load_balancer_ingress[0].ip]
+  records        = [kubernetes_service.mk8s_nginx.status.0.load_balancer.0.ingress.0.ip]
   set_identifier = "ru"
   geolocation_routing_policy {
     country = "RU"
