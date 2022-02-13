@@ -88,6 +88,6 @@ In some cases, apps can work completely independently and you don’t need to sy
 </p>
 Examples to help build this architecture:
 
-* <a href="/System Manager (hybrid instance management)/README.MD">Example and automation for managing instances on Yandex Cloud using AWS Systems Manager</a>
+* <a href="/System Manager (hybrid instance management)/">Example and automation for managing instances on Yandex Cloud using AWS Systems Manager</a>
 
-* <a href="/VPN/README.md">Establishing a VPN connection for more secure connectivity</a>
+* <a href="/VPN/">Establishing a VPN connection for more secure connectivity</a>
