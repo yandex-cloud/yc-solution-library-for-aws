@@ -15,7 +15,12 @@ variable "yandex_subnet_range" {
 
 variable "k8s_version" {
   description = "EKS and Mk8s kubernetes version"
-  default     = "1.17"
+  default     = "1.21"
+}
+
+variable "nginx_version" {
+  description = "Nginx version"
+  default     = "1.21.6"
 }
 
 variable "region" {
@@ -70,6 +75,7 @@ variable "map_users" {
     },
   ]
 }
+
 variable "k8s_service_ipv4_range" {
   type        = string
   default     = "10.150.0.0/16"
@@ -81,8 +87,15 @@ variable "k8s_pod_ipv4_range" {
   default     = "10.140.0.0/16"
   description = "CIDR for pods in k8s cluster"
 }
+
 variable "k8s_whitelist" {
   type        = list(any)
   default     = ["0.0.0.0/0"]
   description = "Range of ip-addresses which can access cluster API with kubectl etc"
+}
+
+variable "aws_domain_name" {
+  type        = string
+  default     = "aws-yandex-example.com"
+  description = "Domain name for AWS Route53"
 }

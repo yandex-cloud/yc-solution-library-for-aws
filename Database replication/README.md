@@ -1,93 +1,102 @@
-# Setting up replication between AWS RDS for PostgreSQL and Yandex Managed Database
+# Setting up data replication between AWS RDS for PostgreSQL and Yandex Managed Database for PostgreSQL by Yandex Data Transfer
 
 ## Overview and target scenario
-We’ve noticed that more and more customers are looking for approaches to help them build hybrid solutions. While the reasons for this include a need to comply with local regulations and meet latency requirements, others use AWS for primary deployment and consolidating data. To help our customers, we tested replication between AWS RDS for PostgreSQL version 12.3 and Managed Service for PostgreSQL version 12 and prepared detailed step-by-step instructions for the scenario. Here you’ll find the official documentation for logical replication in PostgreSQL, which the solution is built on. The deployment architecture is illustrated below:
-
+We’ve noticed that more and more customers are looking for approaches to help them build hybrid solutions. While the reasons for this include a need to comply with local regulations and meet latency requirements, others use AWS for primary deployment and consolidating data. To help our customers, we tested data replication (sync) between `AWS RDS for PostgreSQL` (version 13) and `Yandex Cloud Managed Service for PostgreSQL` (version 13) and prepared detailed step-by-step instructions for the scenario. For the data transfer is used `Yandex Data Transfer` service. The deployment architecture is illustrated below:
 
 <p align="center">
-    <img src="https://storage.yandexcloud.net/cloud-www-assets/solutions/aws/yc-solution-library-aws-website-replication-db.png" alt="Classic web-site diagram on multi-cloud" width="600"/>
+    <img src="db-replication.png" alt="DB Replication with Yandex Data Transfer diagram" width="600"/>
 </p>
 
-A detailed description of a similar process between PostgreSQL instances deployed on AWS can be found [here](https://aws.amazon.com/blogs/database/using-logical-replication-to-replicate-managed-amazon-rds-for-postgresql-and-amazon-aurora-to-self-managed-postgresql/). The process consists of two stages:
-1. Initial setup of the logical replication slot and initial data backup.
-2.	Establishing ongoing replication of changes using the pgoutput plugin.
+## Documentation
+* [Amazon RDS for PostgreSQL](https://aws.amazon.com/rds/postgresql/)
+* [Yandex Managed Service for PostgreSQL](https://cloud.yandex.com/en/docs/managed-postgresql/)
+* [Yandex Data Transfer](https://cloud.yandex.com/en/docs/data-transfer/)
+
 
 ## Prerequisites
 
-1.	Deploy a new RDS database instance on your AWS account. Detailed instructions can be found [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.PostgreSQL.html).
-`Note: You need to setup public access for the host.`
-2.	Deploy a new Yandex Managed Service for PostgreSQL instance. You can also use your current deployment. Detailed instructions on how to deploy it can be found [here](https://cloud.yandex.ru/docs/managed-postgresql/quickstart). 
-`Note: You need to setup public access for the host.`
-3. Configure a security group for the RDS instance to allow inbound and outbound traffic from the Yandex Managed Database host’s IP address. The IP address can be found using the hostname from the connection string provided in the Yandex Web Console.  
-For example: `port:5432, ip:84.201.177.214/32, protocol:TCP`.
+- Accounts in AWS and Yandex Cloud
+- Bash
+- Terraform 1.1.5
+- jq
+- [PostgreSQL Client (psql)](https://www.compose.com/articles/postgresql-tips-installing-the-postgresql-client/)
 
-## Setting up replication
+To configure AWS site:
+- Configure [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
 
-### Yandex Database
-1.	Grant permissions to the user performing replication. This can be done by running the following command in the Yandex CLI:
-
+To configure Yandex Cloud site:
+- Configure [YC CLI](https://cloud.yandex.com/docs/cli/quickstart) 
+- Export Yandex Cloud Credentials for Provider
 ```
-yc managed-postgresql user update {user_name} --grants mdb_replication --cluster-id {cluster_id}
-```
-
-2.	Create a test table:
-
-```
-CREATE TABLE phone(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHAR(32);
+export YC_TOKEN=$(yc config get token)
+export YC_CLOUD_ID=$(yc config get cloud-id)
+export YC_FOLDER_ID=$(yc config get folder-id)
 ```
 
-3.	Insert test data:
+## Quick start
+
+### Initiate example playbook
+
+This playbook will create PostgreSQL instances on AWS and YC sides.
+
+Please wait for about 10 minutes when tasks have been finished.
 
 ```
-INSERT INTO phone(phone, firstname, lastname) VALUES ('12313213', 'Jack', 'Jackinson')
+cd example
+terraform init
+terraform apply 
 ```
 
-4.	Create a publication:
+### Prepare an environment
+```bash
+DB_USER=$(terraform output -raw db_user)
+DB_PORT=$(terraform output -raw db_port)
+DB_NAME=$(terraform output -raw db_name)
+DB_PASS=$(terraform output -raw db_passwd)
 
-```
-CREATE PUBLICATION yandex_pub FOR TABLE phone;
-```
+YC_DB_ID=$(terraform output -raw yc_db_cluster_id)
+YC_DB_HOST=$(terraform output -raw yc_db_host_fqdn)
 
-
-### AWS RDS for PostgreSQL
-1. Create a new parameters group. Assign the rds.logical_replication parameter a value of 1. Attach it to your database instance. Detailed instructions on how to create parameter groups can be found [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html).
-2. To establish replication, the same tables must be available in the read replica instance. To do this, you can use pg_dump and restore it, or in our case, create the same empty table:
-```
-CREATE TABLE phone(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHAR(32);
-```
-3. Create a subscription to the changes in the original database using your user credentials:
-```
-СREATE SUBSCRIPTION yandex_sub CONNECTION 'host={xxxxxxxxx.mdb.yandexcloud.net} port=6432 dbname=db1 user={xxxx} password={xxxxxxx}' PUBLICATION yandex_pub;
+AWS_DB_HOST=$(terraform output -raw aws_db_host_fqdn)
 ```
 
-### Testing replication
-1.	Once you’ve successfully completed the previous steps, you should be able to see the initial data in your AWS read replica instance. Try to execute the following command on the AWS read replica instance: `select * from phone`. This should show you the initial data from your original Yandex database. From now on, all changes to data in the original database will be replicated on the read replica in AWS. 
-2. Try inserting a new row in the original database and then see if the same changes were made on the read replica:
-```
-INSERT INTO phone(phone, firstname, lastname) VALUES ('444444, 'Alex', 'Trump')
+### Create table with the sample of data in Origin DB (AWS side)
+```bash
+psql "postgresql://$DB_USER:$DB_PASS@$AWS_DB_HOST:$DB_PORT/$DB_NAME" -c "CREATE TABLE phone (phone VARCHAR(32) PRIMARY KEY, firstname VARCHAR(32), lastname VARCHAR(32)); INSERT INTO phone (phone, firstname, lastname) VALUES('12313213','Jack','Jackinson');"
 ```
 
-You can also check the status of replication slots in the original database using the following query: select * from pg_replication_slots; The query should return something like this: 
+### Create Yandex Data Transfer for the data replication
+Create the Yandex Data Transfer for replicate data from the AWS to Yandex Cloud
+```bash
+terraform apply -var=dt_enable=true
+```
+Please wait about 10 minutes when tasks have been finished.
 
-slot_name |  plugin  | slot_type | datoid | database | temporary | active | active_pid | xmin | catalog_xmin | restart_lsn | confirmed_flush_lsn 
------------|----------|-----------|--------|----------|-----------|--------|------------|------|--------------|-------------|---------------------
- mysub     | pgoutput | logical   |  13934 | postgres | f         | t      |      31772 |      |          661 | 0/12016490  | 0/120164C8
+### Check data replication results on YC side
+```bash
+psql "postgresql://$DB_USER:$DB_PASS@$YC_DB_HOST:$DB_PORT/$DB_NAME" -c "SELECT * FROM phone;"
+```
 
+### Add more data to the Origin DB (AWS side)
+```bash
+psql "postgresql://$DB_USER:$DB_PASS@$AWS_DB_HOST:$DB_PORT/$DB_NAME" -c "INSERT INTO phone(phone, firstname, lastname) VALUES ('444444','Alex','Trump');"
+```
+Data transfer can take a few minutes!
 
-Use the following command in a query to help you check the current replication progress and get replication statistics: `select * from pg_stat_replication;`
+### Check data replication results again on YC side
+```bash
+psql "postgresql://$DB_USER:$DB_PASS@$YC_DB_HOST:$DB_PORT/$DB_NAME" -c "SELECT * FROM phone;"
+```
 
-### Replicating all tables
-1.	To replicate all of the tables in your database, both databases must have similar schemas. The easiest way to copy schemas is to use the command `pg_dump --schema-only.` and apply it on the read replica. 
-2. Create a publication:  `CREATE PUBLICATION yandex_pub FOR ALL TABLES`
-3. The process is then the same as the instructions above.
+### To destroy everything quickly
 
-### Limitations
-A detailed explanation of all replication restrictions and limitations can be found [here](https://www.postgresql.org/docs/10/logical-replication-restrictions.html). The main restrictions are:
-* The database schema and DDL commands can’t be replicated. The initial schema can be copied manually using  pg_dump --schema-only. . Any changes to the schema will need to be made on replicas manually. (Note that schemas don’t have to be absolutely identical on both sides.) Logical replication is robust when schema definitions change in a live database: when the schema is changed on the publisher and replicated data starts arriving at the subscriber, but doesn’t fit into the table schema, replication will cause an error to occur until the schema is updated. In many cases, you can avoid intermittent errors by first applying additive schema changes to the subscriber.
-* Sequence data can’t be replicated. Data in serial or identity columns backed by sequences will be replicated as part of the table, but the sequence itself will still show the start value on the subscriber. If the subscriber is used as a read-only database, then this generally shouldn’t be a problem. If, however, a switchover or failover to the subscriber database is planned, then the sequences will have to be updated to the latest values either by copying the current data from the publisher (using pg_dump, for example) or by setting an initial value that will certainly be higher than possible values in the source database.
-* TRUNCATE commands can’t be replicated. A workaround for this is to use DELETE instead. To avoid accidental TRUNCATE invocations, revoke the TRUNCATE privilege from the tables.
-* Large objects (see Chapter 34) can’t be replicated. There is no workaround for that other than to store data in normal tables.
-* Replication is only possible from base tables to base tables: the tables on publication and subscription sides must be normal tables, but not views, materialized views, partition root tables, or foreign tables. For partitions, you can replicate a partition hierarchy one-to-one, but you currently can’t replicate to a differently partitioned setup. Attempts to replicate tables other than base tables will result in an error.
+Destroy the Yandex Data Transfer resource first.
+```bash
+terraform destroy -target=yandex_datatransfer_transfer.dt_transfer
+```
 
-### Using AWS Database Migration Service
-The current version of the AWS Database Migration Service uses the pglogical extension to sync data between PostgreSQL databases. Unfortunately, Yandex Managed Database for PostgreSQL doesn’t have that extension. Therefore, ongoing replication cannot be established, but you can still use the service for one-time migration. You can find detailed instructions on how to use the AWS Database Migration Service to establish replication between PostgreSQL databases [here](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_SettingUp.html).   
+Please wait about 5 minutes when previous destroy task has been finished and destroy all other resources.
+
+```
+terraform destroy
+```

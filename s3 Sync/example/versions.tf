@@ -1,7 +1,3 @@
-provider "yandex" {
-
-  folder_id = var.folder_id
-}
 
 
 provider "aws" {
@@ -12,16 +8,16 @@ provider "aws" {
 
 
 terraform {
-  required_version = ">= 0.13"
+  required_version = ">= 1.1.5"
 
   required_providers {
     yandex = {
       source  = "yandex-cloud/yandex"
-      version = "~> 0.5"
+      version = "~> 0.70"
     }
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.10"
+      version = "~> 3.70"
     }
     archive = {
       source = "hashicorp/archive"

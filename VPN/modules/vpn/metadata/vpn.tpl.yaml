@@ -22,10 +22,10 @@ write_files:
         type=tunnel
         leftauth=psk
         rightauth=psk
-        keyexchange=ikev1
-        ike=aes128-sha1-modp1024
+        keyexchange=ikev2
+        ike=aes128gcm16-prfsha256-ecp256,aes256gcm16-prfsha384-ecp384!
         ikelifetime=8h
-        esp=aes128-sha1-modp1024
+        esp=aes128gcm16-ecp256,aes256gcm16-ecp384!
         lifetime=1h
         keyingtries=%forever
         leftsubnet=${leftsubnet}

@@ -1,79 +1,114 @@
-output "this_db_instance_address" {
-  description = "The address of the RDS instance"
-  value       = module.db.this_db_instance_address
-}
-
-output "this_db_instance_arn" {
-  description = "The ARN of the RDS instance"
-  value       = module.db.this_db_instance_arn
-}
-
-output "this_db_instance_availability_zone" {
-  description = "The availability zone of the RDS instance"
-  value       = module.db.this_db_instance_availability_zone
-}
-
-output "this_db_instance_endpoint" {
-  description = "The connection endpoint"
-  value       = module.db.this_db_instance_endpoint
-}
-
-output "this_db_instance_hosted_zone_id" {
-  description = "The canonical hosted zone ID of the DB instance (to be used in a Route 53 Alias record)"
-  value       = module.db.this_db_instance_hosted_zone_id
-}
-
-output "this_db_instance_id" {
-  description = "The RDS instance ID"
-  value       = module.db.this_db_instance_id
-}
-
-output "this_db_instance_resource_id" {
-  description = "The RDS Resource ID of this instance"
-  value       = module.db.this_db_instance_resource_id
-}
-
-output "this_db_instance_status" {
-  description = "The RDS instance status"
-  value       = module.db.this_db_instance_status
-}
-
-output "this_db_instance_name" {
+output "db_name" {
   description = "The database name"
-  value       = module.db.this_db_instance_name
+  value       = var.db_name
 }
 
-output "this_db_instance_username" {
-  description = "The master username for the database"
-  value       = module.db.this_db_instance_username
+output "db_user" {
+  description = "The username for the database"
+  value       = aws_db_instance.this.username
 }
 
-output "this_db_instance_password" {
-  description = "The database password (this password may be old, because Terraform doesn't track it after initial creation)"
-  value       = module.db.this_db_instance_password
+output "db_passwd" {
+  description = "The password for the database"
+  value       = var.db_password
+  sensitive   = true
 }
 
-output "this_db_instance_port" {
-  description = "The database port"
-  value       = module.db.this_db_instance_port
+output "db_port" {
+  description = "The TCP port of DB instance"
+  value       = var.db_port
+}
+
+output "yc_db_cluster_id" {
+  description = "The YC PostgreSQL Cluster ID"
+  value       = yandex_mdb_postgresql_cluster.pg.id
+}
+
+output "yc_db_host_fqdn" {
+  description = "The YC PostgreSQL Cluster Hostname"
+  value       = yandex_mdb_postgresql_cluster.pg.host[0].fqdn
+}
+
+output "aws_db_host_fqdn" {
+  description = "The address of the RDS instance"
+  value       = aws_db_instance.this.address
+}
+
+
+/*
+output "aws_db_instance_name" {
+  description = "The AWS database name"
+  value       = aws_db_instance.this.name
+}
+
+output "aws_db_instance_endpoint" {
+  description = "The AWS connection endpoint"
+  value       = aws_db_instance.this.endpoint
+}
+
+output "aws_db_instance_port" {
+  description = "The AWS database port"
+  value       = aws_db_instance.this.port
 }
 
 output "this_db_subnet_group_id" {
   description = "The db subnet group name"
-  value       = module.db.this_db_subnet_group_id
+  value       = element(concat(aws_db_subnet_group.this.*.id, [""]), 0)
 }
 
 output "this_db_subnet_group_arn" {
   description = "The ARN of the db subnet group"
-  value       = module.db.this_db_subnet_group_arn
+  value       = element(concat(aws_db_subnet_group.this.*.arn, [""]), 0)
 }
 
 output "this_db_parameter_group_id" {
   description = "The db parameter group id"
-  value       = module.db.this_db_parameter_group_id
+  value       = aws_db_parameter_group.default.id
 }
 
 output "this_db_parameter_group_arn" {
   description = "The ARN of the db parameter group"
-  value       = module.db.this_db_parameter_group_arn
+  value       = aws_db_parameter_group.default.arn
 }
+
+output "this_db_instance_address" {
+  description = "The address of the RDS instance"
+  value       = aws_db_instance.this.address
+}
+
+output "this_db_instance_arn" {
+  description = "The ARN of the RDS instance"
+  value       = aws_db_instance.this.arn
+}
+
+output "this_db_instance_availability_zone" {
+  description = "The availability zone of the RDS instance"
+  value       = aws_db_instance.this.availability_zone
+}
+
+output "this_db_instance_hosted_zone_id" {
+  description = "The canonical hosted zone ID of the DB instance (to be used in a Route 53 Alias record)"
+  value       = aws_db_instance.this.hosted_zone_id
+}
+
+output "this_db_instance_id" {
+  description = "The RDS instance ID"
+  value       = aws_db_instance.this.id
+}
+
+output "this_db_instance_resource_id" {
+  description = "The RDS Resource ID of this instance"
+  value       = aws_db_instance.this.resource_id
+}
+
+output "this_db_instance_status" {
+  description = "The RDS instance status"
+  value       = aws_db_instance.this.status
+}
+
+
+output "this_db_instance_port" {
+  description = "The database port"
+  value       = aws_db_instance.this.port
+}
+*/

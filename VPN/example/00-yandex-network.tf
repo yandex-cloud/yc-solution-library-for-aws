@@ -1,7 +1,5 @@
 #network
 
-
-
 resource "yandex_vpc_network" "yandex_vpc_demo_network" {
   name = "aws-vpc-demo-network"
 }
@@ -11,9 +9,6 @@ resource "yandex_vpc_network" "yandex_vpc_demo_network" {
 resource "yandex_vpc_security_group" "user_vm_sg" {
   name       = "aws-vpc-demo-user-sg"
   network_id = yandex_vpc_network.yandex_vpc_demo_network.id
-
-
-
 
 
   ingress {

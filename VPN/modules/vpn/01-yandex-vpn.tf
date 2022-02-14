@@ -11,7 +11,6 @@ resource "yandex_compute_image" "vpn_instance" {
 data "template_file" "vpn_cloud_init" {
   template = file("${path.module}/metadata/vpn.tpl.yaml")
   vars = {
-
     ssh_key     = file(var.public_key_path)
     left_id     = data.yandex_vpc_address.vpn_address.external_ipv4_address.0.address
     right       = aws_vpn_connection.yandex_vpn_connection.tunnel1_address
@@ -53,10 +52,6 @@ resource "yandex_compute_instance" "vpn_vm" {
   metadata = {
     user-data = data.template_file.vpn_cloud_init.rendered
   }
-
-
-
-
 
 }
 

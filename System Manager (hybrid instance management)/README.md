@@ -1,7 +1,7 @@
 # AWS Systems Manager for hybrid managed instances
 Systems Manager provides a unified user interface so you can view operational data from multiple managed instances across AWS, on-premises, and other cloud providers and allows you to automate operational tasks across your resources. With Systems Manager, you can group resources, view operational data for monitoring and troubleshooting, and audit operation changes for your groups of resources. Systems Manager simplifies resource and application management, shortens the time to detect and resolve operational problems, and makes it easy to operate and manage your infrastructure securely at scale.
 
-ystems Manager securely communicates with a lightweight agent installed on your servers to execute management tasks. This helps you manage resources for Windows and Linux operating systems running on Amazon EC2, on-premises, and other cloud providers. You can read more about the service [here](https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html).
+Systems Manager securely communicates with a lightweight agent installed on your servers to execute management tasks. This helps you manage resources for Windows and Linux operating systems running on Amazon EC2, on-premises, and other cloud providers. You can read more about the service [here](https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html).
 
 Configuring your hybrid environment for Systems Manager enables you to do the following:
 * Create a consistent and secure way to remotely manage your hybrid workloads from one location using the same tools or scripts.
@@ -12,7 +12,7 @@ Configuring your hybrid environment for Systems Manager enables you to do the fo
 
 
 # Configuration 
-To start managing instances deployed on Yandex.Cloud, you first need to provision roles and make activation sessions with keys. To facilitate this, you can find the initial_setup.sh script, which will provision an IAM role to the SSM agent and grant the required permissions. It will also generate an Activation Key and ID that should be used on the managed instances during configuration.
+To start managing instances deployed on Yandex Cloud, you first need to provision roles and make activation sessions with keys. To facilitate this, you can find the initial_setup.sh script, which will provision an IAM role to the SSM agent and grant the required permissions. It will also generate an Activation Key and ID that should be used on the managed instances during configuration.
 
 ## Initial setup
 Clone the solution on the workstation [where the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) with credentials for your AWS account is installed.
@@ -59,4 +59,5 @@ Check the status of machines and manage them:
 1. Go to the  [SSM console](https://eu-central-1.console.aws.amazon.com/systems-manager/)
 2. Go to [Managed Instances](https://eu-central-1.console.aws.amazon.com/systems-manager/managed-instances?region=eu-central-1)
 3. The console should look something like this: 
-![Managed Instances](managed_ui.png "Managed Instances")
+
+![Managed Instances](managed-ui.png "Managed Instances")

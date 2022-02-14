@@ -1,5 +1,5 @@
 resource "aws_iam_user" "yandex_sync" {
-  name = "yandex_sync"
+  name = var.aws_iam_user
 }
 
 resource "aws_iam_access_key" "yandex_sync" {
@@ -13,7 +13,7 @@ resource "aws_iam_user_policy_attachment" "yandex_sync" {
 }
 
 resource "aws_iam_role" "yandex_sync" {
-  name = "yandex_sync"
+  name = var.aws_iam_user
 
   assume_role_policy = <<EOF
 {
@@ -32,7 +32,7 @@ EOF
 
 }
 resource "aws_iam_policy" "yandex_sync" {
-  name = "yandex_sync"
+  name = var.aws_iam_user
   path = "/"
 
   policy = <<EOF

@@ -7,38 +7,37 @@ provider "aws" {
 }
 
 terraform {
-  required_version = ">= 0.13"
+  required_version = ">= 1.1.5"
 
   required_providers {
     yandex = {
       source  = "yandex-cloud/yandex"
-      version = "~> 0.5"
+      version = "~> 0.70"
     }
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.10"
+      version = "~> 3.70"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "1.13.3"
+      version = ">= 2.7.1"
     }
     local = {
       source  = "hashicorp/local"
-      version = "~> 1.2"
+      version = "~> 2.1"
     }
     null = {
       source  = "hashicorp/null"
-      version = "~> 2.1"
+      version = "~> 3.1"
     }
     random = {
       source  = "hashicorp/random"
-      version = "~> 2.1"
+      version = "~> 3.1"
     }
     template = {
       source  = "hashicorp/template"
-      version = "~> 2.1"
+      version = "~> 2.2"
     }
   }
 }
-
 

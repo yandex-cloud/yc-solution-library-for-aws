@@ -1,5 +1,5 @@
 resource "aws_lambda_function" "yandex_sync" {
-  function_name = "yandex_sync"
+  function_name = var.aws_function_name
   role          = aws_iam_role.yandex_sync.arn
   handler       = "main.handler"
 
@@ -23,7 +23,7 @@ resource "aws_lambda_function" "yandex_sync" {
 
 
 resource "aws_iam_role" "iam_for_lambda" {
-  name = "iam_for_lambda"
+  name = "iam_for_${var.aws_function_name}"
 
   assume_role_policy = <<EOF
 {
@@ -40,7 +40,6 @@ resource "aws_iam_role" "iam_for_lambda" {
 }
 EOF
 }
-
 
 resource "aws_lambda_permission" "allow_bucket" {
   statement_id  = "AllowExecutionFromS3Bucket"
